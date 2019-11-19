@@ -1,16 +1,38 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home</router-link>|
+      <router-link to="/players">Players</router-link>
     </div>
-    <router-view/>
+
+    <!-- <li class="flex-1 mr-2">
+        <a
+          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+          href="#"
+        >Nav Item</a>
+      </li>
+
+      <li class="flex-1 mr-2">
+        <a
+          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+          href="#"
+        >Nav Item</a>
+      </li>
+
+      <li class="flex-1 mr-2">
+        <a
+          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
+          href="#"
+        >Nav Item</a>
+    </li>-->
+
+    <router-view />
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
