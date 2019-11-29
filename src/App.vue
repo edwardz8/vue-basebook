@@ -1,30 +1,33 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/players">Players</router-link>
+      <ul class="flex">
+        <li class="flex-1 mr-2">
+          <router-link
+            to="/"
+            class="text-center block border bg-gray-200 border-white rounded text-blue-500 hover:bg-green-300 py-2 px-4"
+          >Basebook</router-link>
+        </li>
+        <li class="flex-1 mr-2">
+          <router-link
+            to="/login"
+            class="text-center block border bg-gray-200 border-white rounded text-blue-500 hover:bg-green-300 py-2 px-4"
+          >Login</router-link>
+        </li>
+        <li class="flex-1 mr-2">
+          <router-link
+            to="/register"
+            class="text-center block border bg-gray-200 border-white rounded text-blue-500 hover:bg-green-300 py-2 px-4"
+          >Register</router-link>
+        </li>
+        <li class="flex-1 mr-2">
+          <router-link
+            to="/players"
+            class="text-center block border bg-gray-200 border-white rounded text-blue-500 hover:bg-green-300 py-2 px-4"
+          >Players</router-link>
+        </li>
+      </ul>
     </div>
-
-    <!-- <li class="flex-1 mr-2">
-        <a
-          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
-          href="#"
-        >Nav Item</a>
-      </li>
-
-      <li class="flex-1 mr-2">
-        <a
-          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
-          href="#"
-        >Nav Item</a>
-      </li>
-
-      <li class="flex-1 mr-2">
-        <a
-          class="text-center block border border-white rounded hover:border-gray-200 text-blue-500 hover:bg-gray-200 py-2 px-4"
-          href="#"
-        >Nav Item</a>
-    </li>-->
 
     <router-view />
   </div>

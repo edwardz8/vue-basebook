@@ -8,7 +8,7 @@
 
     <div class="grid-row">
       <div
-        class="border m-6 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
+        class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
         v-for="player in playerJson"
         :key="player.playerid"
       >
@@ -16,7 +16,7 @@
           <p class="logo">
             <i :class="matchTeamLogo(player.Team)"></i>
           </p>
-          <div class="ml-6 text-center sm:text-left sm:flex-grow">
+          <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
               <p class="font-sans text-xl leading-tight mb-2">{{ player.Name }}</p>
               <p
@@ -95,8 +95,58 @@ export default {
         case "White Sox":
           return "bbclub-CWS CWS";
           break;
+        case "Athletics":
+          return "bbclub-OAK OAK";
+          break;
+        case "Rangers":
+          return "bbclub-TEX TEX";
+          break;
+        case "Angels":
+          return "bbclub-LAA LAA";
+          break;
+        case "Mariners":
+          return "bbclub-SEA SEA";
+          break;
+        case "Nationals":
+          return "bbclub-WSH WSH";
+          break;
+        case "Phillies":
+          return "bbclub-PHI PHI";
+          break;
+        case "Mets":
+          return "bbclub-NYM NYM";
+          break;
+        case "Marlins":
+          return "bbclub-MIA MIA";
+          break;
+        case "Pirates":
+          return "bbclub-PIT PIT";
+          break;
+        case "Cardinals":
+          return "bbclub-STL STL";
+          break;
+        case "Reds":
+          return "bbclub-CIN CIN";
+          break;
+        case "Cubs":
+          return "bbclub-CHC CHC";
+          break;
+        case "Dodgers":
+          return "bbclub-LAD LAD";
+          break;
+        case "Diamondbacks":
+          return "bbclub-ARI ARI";
+          break;
+        case "Rockies":
+          return "bbclub-COL COL";
+          break;
+        case "Giants":
+          return "bbclub-SF SF";
+          break;
+        case "Padres":
+          return "bbclub-SD SD";
+          break;
         default:
-          /* debugger; */
           return "bbclub-mlb";
       }
     }

@@ -10,20 +10,18 @@
       <hr />
       <br />
     </div>
-    <div v-else>
-      <!-- <BatterList></BatterList> -->
-    </div>
+    <div v-else></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import BatterList from "@/components/BatterList.vue";
+import Register from "@/components/Register.vue";
 
 export default {
   name: "home",
   components: {
-    BatterList
+    Register
   },
   props: {
     loading: Boolean,
