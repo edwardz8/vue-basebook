@@ -1,5 +1,5 @@
 <template>
-  <div class="register-form-body">
+  <div class="register-form-body mt-6">
     <div v-if="error">{{error}}</div>
     <form action="#" @submit.prevent="submit" class="w-full max-w-sm">
       <div class="md:flex md:items-center mb-6">
@@ -12,7 +12,7 @@
         <div class="md:w-2/3">
           <input
             v-model="form.username"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
+            class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="username"
             type="username"
           />
@@ -28,7 +28,7 @@
         <div class="md:w-2/3">
           <input
             v-model="form.email"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
+            class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="email"
             type="email"
           />
@@ -44,7 +44,7 @@
         <div class="md:w-2/3">
           <input
             v-model="form.password"
-            class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
+            class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="password"
             type="password"
             name="password"

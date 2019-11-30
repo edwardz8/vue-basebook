@@ -1,20 +1,35 @@
 <template>
   <div class="players">
-    <BatterList></BatterList>
+    <div class="inline-flex">
+      <button
+        @click="current = 'BatterList'"
+        class="bg-gray-300 hover:bg-green-300 text-gray-800 font-bold py-2 px-4 rounded-l"
+      >Batters</button>
+
+      <button
+        @click="current = 'PitcherList'"
+        class="bg-gray-300 hover:bg-green-300 text-gray-800 font-bold py-2 px-4 rounded-r"
+      >Pitchers</button>
+    </div>
+
+    <component :is="current"></component>
   </div>
 </template>
 
 <script>
 import BatterList from "@/components/BatterList.vue";
+import PitcherList from "@/components/PitcherList.vue";
 
 export default {
   name: "players",
-  components: {
-    BatterList
+  data() {
+    return {
+      current: "BatterList"
+    };
   },
-  props: {
-    loading: Boolean,
-    error: String
+  components: {
+    BatterList,
+    PitcherList
   }
 };
 </script>
