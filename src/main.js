@@ -12,7 +12,7 @@ import store from './store';
 Vue.use(VueCompositionApi);
 Vue.config.productionTip = false;
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: 'AIzaSyDSCze4KVkWRDkU1Ync0tVj31CfPit2FzY',
   authDomain: 'basebook-92100.firebaseapp.com',
   databaseURL: 'https://basebook-92100.firebaseio.com',
@@ -25,6 +25,10 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
+
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 
 new Vue({
   router,
