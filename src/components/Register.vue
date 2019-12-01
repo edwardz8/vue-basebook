@@ -57,7 +57,7 @@
         <div class="md:w-2/3">
           <button
             type="submit"
-            class="shadow bg-green-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+            class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
           >Sign Up</button>
         </div>
       </div>

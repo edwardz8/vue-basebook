@@ -1,6 +1,8 @@
 <template>
   <div class="players">
-    <div class="inline-flex">
+        <h1 class="font-mono text-lg text-gray-800 text-center">2020 Steamer Projections</h1>
+
+    <div class="inline-flex mt-4">
       <button
         @click="current = 'BatterList'"
         class="bg-gray-300 hover:bg-green-300 text-gray-800 font-bold py-2 px-4 rounded-l"
@@ -29,7 +31,7 @@ export default {
   },
   components: {
     BatterList,
-    PitcherList
+    PitcherList,
   }
 };
 </script>

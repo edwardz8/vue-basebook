@@ -1,15 +1,23 @@
 <template>
   <div class="container mx-auto py-2">
-    <h1 class="font-mono text-lg text-gray-800 text-center">2020 Steamer Batting Projections</h1>
 
-    <div class="flex mb-4">
-      <div class="flex-1 bg-gray-500 h-3"></div>
-    </div>
+    <!-- SearchBox -->
+    <div class="searchbox">
+    <label
+      class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+      for="grid-password"
+    >Search By Team or Player</label>
+    <input v-model="search" @keyup.native="getFilteredData"
+    class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
+      type="text"
+    />
+  </div>
 
+<!-- Batter Grid List -->
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="player in playerJson"
+        v-for="player in filteredData"
         :key="player.playerid"
       >
         <div class="sm:flex sm:items-center px-6 py-4">
@@ -49,9 +57,21 @@ export default {
   },
   data() {
     return {
-      playerJson: batterProjections,
+      search: '',
+      battersList: batterProjections,
       team: batterProjections.Team
     };
+  },
+  computed: {
+    filteredData() {
+      if (this.search) {
+          return this.battersList.filter((p) => {
+            return this.search.toLowerCase().split(' ').every(v => p.Name.toLowerCase().includes(v) || p.Team.toLowerCase().includes(v));
+          })
+      } else {
+        return this.battersList
+      }
+    },
   },
   methods: {
     matchTeamLogo(team) {
@@ -158,6 +178,11 @@ export default {
 .container {
   max-width: 1330px;
   margin: 0 auto;
+}
+.searchbox {
+  margin: auto;
+  width: 50%;
+  margin-top: 2rem;
 }
 .grid-row {
   display: flex;
