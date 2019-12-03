@@ -1,19 +1,20 @@
 <template>
   <div class="container mx-auto py-2">
-
     <!-- SearchBox -->
     <div class="searchbox">
-    <label
-      class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-      for="grid-password"
-    >Search By Team or Player</label>
-    <input v-model="search" @keyup.native="getFilteredData"
-    class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
-      type="text"
-    />
-  </div>
+      <label
+        class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+        for="grid-password"
+      >Search By Team or Player</label>
+      <input
+        v-model="search"
+        @keyup.native="getFilteredData"
+        class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
+        type="text"
+      />
+    </div>
 
-  <!-- Pitcher Grid List -->
+    <!-- Pitcher Grid List -->
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
@@ -54,25 +55,34 @@ import pitcherProjections from "../../public/pitchers_2020.json";
 export default {
   name: "PitcherList",
   props: {
-    loading: Boolean,
+    loading: Boolean
   },
   data() {
     return {
-      search: '',
+      search: "",
       pitchersList: pitcherProjections,
       team: pitcherProjections.Team,
+      playerCards: [],
+      likes: 0
     };
   },
   computed: {
     filteredData() {
       if (this.search) {
-          return this.pitchersList.filter((p) => {
-            return this.search.toLowerCase().split(' ').every(v => p.Name.toLowerCase().includes(v) || p.Team.toLowerCase().includes(v));
-          })
+        return this.pitchersList.filter(p => {
+          return this.search
+            .toLowerCase()
+            .split(" ")
+            .every(
+              v =>
+                p.Name.toLowerCase().includes(v) ||
+                p.Team.toLowerCase().includes(v)
+            );
+        });
       } else {
-        return this.pitchersList
+        return this.pitchersList;
       }
-    },
+    }
   },
   methods: {
     matchTeamLogo(team) {

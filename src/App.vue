@@ -9,6 +9,12 @@
           >Players</router-link>
         </li>
         <li class="flex-1 mr-2">
+          <router-link
+            to="/profile"
+            class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
+          >Profile</router-link>
+        </li>
+        <li class="flex-1 mr-2">
           <a
             @click.prevent="signOut"
             class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"

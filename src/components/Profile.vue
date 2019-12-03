@@ -1,5 +1,12 @@
 <template>
-  <div class="container">Profile Page</div>
+  <div class="container">
+    <p>Profile Page</p>
+    <div>
+      <div v-for="fav in favorites" :key="fav.id">
+        <span>{{ fav.Name }}</span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
