@@ -1,4 +1,4 @@
-/* import firebase from 'firebase'
+import firebase from 'firebase'
 import 'firebase/firestore'
 
 var firebaseConfig = {
@@ -11,7 +11,8 @@ var firebaseConfig = {
     appId: '1:46273488588:web:d7ca0fba24117e4a1c4469',
     measurementId: 'G-GQE6B4MS20'
 };
-// Initialize Firebase
+
+// Initialize Firestore instance
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
@@ -22,16 +23,15 @@ const currentUser = auth.currentUser
 
 // firebase collections
 const usersCollection = db.collection('users')
-const playerCardsCollection = db.collection('cards')
+const battersCollection = db.collection('battersCollection')
+/* const playerCardsCollection = db.collection('cards')
 const commentsCollection = db.collection('comments')
-const likesCollection = db.collection('likes')
+const likesCollection = db.collection('likes') */
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    playerCardsCollection,
-    commentsCollection,
-    likesCollection
-} */
+    battersCollection
+}

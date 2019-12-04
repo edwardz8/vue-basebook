@@ -40,7 +40,7 @@
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
-                @click="addToFavorites(player)"
+                @click="addBatterToFavorites(player)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
               >Favorite</button>
               <button
@@ -57,6 +57,8 @@
 <script>
 import batterProjections from "../../public/steamerprojections_2020.json";
 import { mapActions, mapGetters } from "vuex";
+import { db, battersCollection } from "../db";
+import firebase from "firebase";
 
 export default {
   name: "BatterList",
@@ -66,12 +68,17 @@ export default {
       search: "",
       battersList: batterProjections,
       team: batterProjections.Team,
-      favorites: []
+      favorites: [],
+      battersCollection: [],
+      favoriteBatters: null
     };
+  },
+  firestore: {
+    battersCollection
   },
   computed: {
     ...mapGetters({
-      batters: "allBatterCards",
+      // batters: "allBatterCards",
       length: "getNumberOfBatterCards"
     }),
     filteredData() {
@@ -93,7 +100,8 @@ export default {
   },
   methods: {
     ...mapActions(["addBatterCard"]),
-    addToFavorites: function(player) {
+    addBatterToFavorites() {},
+    /* addToFavorites: function(player) {
       var favorite = false;
       for (var i = 0; i < this.favorites.length; i++) {
         if (this.favorites[i].id === player.playerid) {
@@ -107,7 +115,7 @@ export default {
           name: player.Name
         });
       }
-    },
+    }, */
     matchTeamLogo(team) {
       switch (team) {
         case "Braves":
