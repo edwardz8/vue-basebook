@@ -15,21 +15,6 @@ Vue.use(VueCompositionApi);
 Vue.use(firestorePlugin)
 Vue.config.productionTip = false;
 
-// var db = firebase.firestore();
-// firebase.analytics();
-
-// Firestore instance
-/* export const db = firebase.initializeApp({
-    projectId: 'basebook-92100',
-}).firestore() */
-
-/*
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app'); */
-
 firebase.auth().onAuthStateChanged(user => {
   store.dispatch("fetchUser", user)
   new Vue({

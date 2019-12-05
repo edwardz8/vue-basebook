@@ -68,7 +68,7 @@
 <script>
 import batterProjections from "../../public/steamerprojections_2020.json";
 import { mapActions, mapGetters } from "vuex";
-import { db, battersCollection } from "../db";
+import { db, batters } from "../db";
 import firebase from "firebase";
 import methods from "../methods";
 
@@ -81,12 +81,12 @@ export default {
       battersList: batterProjections,
       team: batterProjections.Team,
       favorites: [],
-      battersCollection: [],
+      batters: [],
       favoriteBatters: null
     };
   },
   firestore: {
-    battersCollection
+    batters
   },
   computed: {
     ...mapGetters({

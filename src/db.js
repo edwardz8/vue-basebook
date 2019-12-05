@@ -23,15 +23,53 @@ const currentUser = auth.currentUser
 
 // firebase collections
 const usersCollection = db.collection('users')
-const battersCollection = db.collection('battersCollection')
+const batters = db.collection('batters')
 /* const playerCardsCollection = db.collection('cards')
 const commentsCollection = db.collection('comments')
 const likesCollection = db.collection('likes') */
+
+// json imports
+import batterProjections from '../public/steamerprojections_2020.json'
+
+/* batterProjections.forEach(function (obj) {
+    db.collection("batters").add({
+        Name: obj.Name,
+        Team: obj.Team,
+        G: obj.G,
+        PA: obj.PA,
+        AB: obj.AB,
+        H: obj.H,
+        HR: obj.HR,
+        R: obj.H,
+        RBI: obj.RBI,
+        BB: obj.BB,
+        SO: obj.SO,
+        HBP: obj.HBP,
+        SB: obj.SB,
+        CS: obj.CS,
+        AVG: obj.AVG,
+        OBP: obj.OBP,
+        SLG: obj.SLG,
+        OPS: obj.OPS,
+        // woBA: obj.woBA,
+        //wRC+: obj.wRC+,
+        BsR: obj.BsR,
+        Fld: obj.Fld,
+        Off: obj.Off,
+        Def: obj.Def,
+        WAR: obj.WAR,
+        playerid: obj.playerid
+    }).then(function (docRef) {
+        console.log("Document written with playerid", docRef.playerid)
+    }).catch(function (error) {
+        console.log("Error adding document", error);
+    });
+}); */
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    battersCollection
+    batters
 }
