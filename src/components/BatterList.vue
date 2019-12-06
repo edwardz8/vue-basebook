@@ -1,19 +1,11 @@
 <template>
   <div class="container mx-auto py-2">
-    <!-- Favorite -->
-    <div>
-      <div v-for="(fav, index) in favorites" :key="`fav.playerid-${index}`">
-        {{ fav.Name }}
-      </div>
-    </div>
-
     <!-- SearchBox -->
     <div class="searchbox">
       <label
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-password"
-        >Search By Team or Player</label
-      >
+      >Search By Team or Player</label>
       <input
         v-model="search"
         @keyup.native="getFilteredData"
@@ -26,37 +18,29 @@
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="player in filteredData"
-        :key="player.playerid"
+        v-for="(player, index) in batters"
+        :key="`player.playerid-${index}`"
       >
         <div class="sm:flex sm:items-center px-6 py-4">
           <p class="logo">
-            <i :class="matchTeamLogo(player.Team)"></i>
+            <i :class="matchTeamLogo(player.team)"></i>
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">
-                {{ player.Name }}
-              </p>
-              <p class="font-sans text-sm leading-tight mb-2">
-                WAR: {{ player.WAR }} - AVG: {{ player.AVG }}
-              </p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">
-                {{ player.Team }}
-              </p>
+              <p class="font-sans text-xl leading-tight mb-2">{{ player.name }}</p>
+              <p
+                class="font-sans text-sm leading-tight mb-2"
+              >WAR: {{ player.WAR }} - AVG: {{ player.AVG }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark">{{ player.team }}</p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
                 @click="addBatterToFavorites(player)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-              >
-                Favorite
-              </button>
+              >Favorite</button>
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-              >
-                Comment
-              </button>
+              >Comment</button>
             </div>
           </div>
         </div>
@@ -66,7 +50,6 @@
 </template>
 
 <script>
-import batterProjections from "../../public/steamerprojections_2020.json";
 import { mapActions, mapGetters } from "vuex";
 import { db, batters } from "../db";
 import firebase from "firebase";
@@ -78,8 +61,8 @@ export default {
   data() {
     return {
       search: "",
-      battersList: batterProjections,
-      team: batterProjections.Team,
+      // battersList: batterProjections,
+      team: batters.team,
       favorites: [],
       batters: [],
       favoriteBatters: null
@@ -95,18 +78,18 @@ export default {
     }),
     filteredData() {
       if (this.search) {
-        return this.battersList.filter(p => {
+        return this.batters.filter(p => {
           return this.search
             .toLowerCase()
             .split(" ")
             .every(
               v =>
-                p.Name.toLowerCase().includes(v) ||
-                p.Team.toLowerCase().includes(v)
+                p.name.toLowerCase().includes(v) ||
+                p.team.toLowerCase().includes(v)
             );
         });
       } else {
-        return this.battersList;
+        return this.batters;
       }
     }
   },
