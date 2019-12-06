@@ -25,8 +25,8 @@ const currentUser = auth.currentUser
 const usersCollection = db.collection('users')
 const batters = db.collection('batters')
 const pitchers = db.collection('pitchers')
-// const commentsCollection = db.collection('comments')
-// const likesCollection = db.collection('likes')
+// const favorites = db.collection('favorites')
+// const comments = db.collection('comments')
 
 const batterProjections = require('../public/batters_2020.json');
 const pitcherProjections = require('../public/pitchers_2020.json');
@@ -99,5 +99,5 @@ export {
     currentUser,
     usersCollection,
     batters,
-    pitchers
+    pitchers,
 }

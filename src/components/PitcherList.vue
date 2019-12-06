@@ -1,5 +1,11 @@
 <template>
   <div class="container mx-auto py-2">
+    <!-- Favorites -->
+    <!-- <div v-if="pitchers">
+      <div v-for="fav of favorites" :key="fav.playerid">
+        <span>{{fav.name}}</span>
+      </div>
+    </div>-->
     <!-- SearchBox -->
     <div class="searchbox">
       <label
@@ -56,44 +62,26 @@ import methods from "../methods";
 
 export default {
   name: "PitcherList",
-  props: {
-    loading: Boolean
-  },
   data() {
     return {
       search: "",
-      pitchers: [],
-      team: pitchers.team
+      // pitchers: [],
+      team: pitchers.team,
+      favorites: []
     };
   },
   firestore: {
     pitchers
   },
-  computed: {
-    filteredData() {
-      if (this.search) {
-        return this.pitchers.filter(p => {
-          return this.search
-            .toLowerCase()
-            .split(" ")
-            .every(
-              v =>
-                p.name.toLowerCase().includes(v) ||
-                p.team.toLowerCase().includes(v)
-            );
-        });
-      } else {
-        return this.pitchers;
-      }
-    }
-    /* ...pitchers.on("value", function(data) {
-   console.log(data.val());
-}, function (error) {
-   console.log("Error: " + error.code);
-}) */
-  },
   methods: {
     ...methods
+    /* addToFavorites() {
+      for (let pitchers of this.pitchers) {
+        this.favorites.push(pitchers.name);
+      }
+      alert("methods");
+      return this.favorites;
+    } */
   }
 };
 </script>

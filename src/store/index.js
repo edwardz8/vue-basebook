@@ -4,8 +4,6 @@ import Vuex from 'vuex';
 import mutations from './mutations';
 import actions from './actions';
 import getters from './getters'; */
-import batterProjections from '../../public/steamerprojections_2020.json'
-import pitcherProjections from '../../public/pitchers_2020.json'
 
 Vue.use(Vuex);
 
@@ -15,12 +13,8 @@ export default new Vuex.Store({
     user: {
       loggedIn: false,
       data: null,
-      favoriteCards: []
+      favorites: []
     },
-    playerCards: {
-      batterProjections,
-      pitcherProjections,
-    }
   },
   getters: {
     user(state) {
@@ -30,7 +24,7 @@ export default new Vuex.Store({
     allPitcherCards: state => state.pitcherProjections,
     getNumberOfBatterCards: state => (state.allBatterCards) ? state.allBatterCards.length : 0,
     getNumberOfPitcherCards: state => (state.allPitcherCards) ? state.allPitcherCards.length : 0,
-    cartProducts: state => {
+    favorites: state => {
       return state.added.map(({
         playerid,
         quantity
@@ -43,7 +37,6 @@ export default new Vuex.Store({
           batterTeam: batterCard.Team,
           pitcherName: pitcherCard.Name,
           pitcherTeam: pitcherCard.Team,
-
         }
       })
     },

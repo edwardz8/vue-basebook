@@ -7,6 +7,7 @@
 <script>
 import { mapGetters } from "vuex";
 import firebase from "firebase";
+import { db, user } from "../db";
 
 export default {
   name: "Profile",
@@ -20,6 +21,14 @@ export default {
     ...mapGetters({
       user: "user"
     })
+  },
+  mounted() {
+    const user = firebase.auth().currentUser;
+    // const name, email, photoUrl, uid, emailVerified;
+
+    if (user != null) {
+      name = user.displayName;
+    }
   }
 };
 </script>
