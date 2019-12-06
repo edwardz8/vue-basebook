@@ -5,8 +5,7 @@
       <label
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-password"
-        >Search By Team or Player</label
-      >
+      >Search By Team or Player</label>
       <input
         v-model="search"
         @keyup.native="getFilteredData"
@@ -28,30 +27,20 @@
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">
-                {{ player.Name }}
-              </p>
-              <p class="font-sans text-sm leading-tight mb-2">
-                Wins: {{ player.W }} - Losses: {{ player.L }}
-              </p>
-              <p class="font-sans text-sm leading-tight mb-2">
-                ERA: {{ player.ERA }}
-              </p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">
-                {{ player.Team }}
-              </p>
+              <p class="font-sans text-xl leading-tight mb-2">{{ player.Name }}</p>
+              <p
+                class="font-sans text-sm leading-tight mb-2"
+              >Wins: {{ player.W }} - Losses: {{ player.L }}</p>
+              <p class="font-sans text-sm leading-tight mb-2">ERA: {{ player.ERA }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark">{{ player.Team }}</p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:bg-blue hover:text-white"
-              >
-                Favorite
-              </button>
+              >Favorite</button>
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:bg-purple hover:text-white"
-              >
-                Comment
-              </button>
+              >Comment</button>
             </div>
           </div>
         </div>
@@ -63,6 +52,7 @@
 <script>
 import pitcherProjections from "../../public/pitchers_2020.json";
 import methods from "../methods";
+import { db } from "../db";
 
 export default {
   name: "PitcherList",
@@ -72,16 +62,15 @@ export default {
   data() {
     return {
       search: "",
-      pitchersList: pitcherProjections,
+      pitchers: pitcherProjections,
       team: pitcherProjections.Team,
-      playerCards: [],
-      likes: 0
+      favorites: []
     };
   },
   computed: {
     filteredData() {
       if (this.search) {
-        return this.pitchersList.filter(p => {
+        return this.pitchers.filter(p => {
           return this.search
             .toLowerCase()
             .split(" ")
@@ -92,7 +81,7 @@ export default {
             );
         });
       } else {
-        return this.pitchersList;
+        return this.pitchers;
       }
     }
   },

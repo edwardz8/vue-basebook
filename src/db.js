@@ -1,5 +1,5 @@
-import firebase from 'firebase'
-import 'firebase/firestore'
+const firebase = require('firebase');
+require('firebase/firestore');
 
 var firebaseConfig = {
     apiKey: 'AIzaSyDSCze4KVkWRDkU1Ync0tVj31CfPit2FzY',
@@ -14,7 +14,7 @@ var firebaseConfig = {
 
 // Initialize Firestore instance
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+// firebase.analytics();
 
 // firebase utils
 const db = firebase.firestore()
@@ -24,52 +24,78 @@ const currentUser = auth.currentUser
 // firebase collections
 const usersCollection = db.collection('users')
 const batters = db.collection('batters')
-/* const playerCardsCollection = db.collection('cards')
-const commentsCollection = db.collection('comments')
-const likesCollection = db.collection('likes') */
+const pitchers = db.collection('pitchers')
 
-// json imports
-import batterProjections from '../public/steamerprojections_2020.json'
+const batterProjections = require('../public/batters_2020.json');
+const pitcherProjections = require('../public/pitchers_2020.json');
 
-/* batterProjections.forEach(function (obj) {
+batterProjections.forEach(function (obj) {
     db.collection("batters").add({
-        Name: obj.Name,
-        Team: obj.Team,
-        G: obj.G,
-        PA: obj.PA,
-        AB: obj.AB,
-        H: obj.H,
-        HR: obj.HR,
-        R: obj.H,
-        RBI: obj.RBI,
-        BB: obj.BB,
-        SO: obj.SO,
-        HBP: obj.HBP,
-        SB: obj.SB,
-        CS: obj.CS,
-        AVG: obj.AVG,
-        OBP: obj.OBP,
-        SLG: obj.SLG,
-        OPS: obj.OPS,
-        // woBA: obj.woBA,
-        //wRC+: obj.wRC+,
-        BsR: obj.BsR,
-        Fld: obj.Fld,
-        Off: obj.Off,
-        Def: obj.Def,
-        WAR: obj.WAR,
-        playerid: obj.playerid
-    }).then(function (docRef) {
-        console.log("Document written with playerid", docRef.playerid)
-    }).catch(function (error) {
-        console.log("Error adding document", error);
-    });
-}); */
+            playerid: obj.playerid,
+            name: obj.Name,
+            team: obj.Team,
+            G: obj.G,
+            PA: obj.PA,
+            AB: obj.AB,
+            H: obj.H,
+            HR: obj.HR,
+            R: obj.R,
+            RBI: obj.RBI,
+            BB: obj.BB,
+            SO: obj.SO,
+            HBP: obj.HBP,
+            SB: obj.SB,
+            CS: obj.CS,
+            AVG: obj.AVG,
+            OBP: obj.OBP,
+            SLG: obj.SLG,
+            OPS: obj.OPS,
+            wOBA: obj.wOBA,
+            BsR: obj.BsR,
+            Fld: obj.Fld,
+            Off: obj.Off,
+            Def: obj.Def,
+            WAR: obj.WAR
+        }).then(function (docRef) {
+            // console.log("Document written with ID: ", docRef.playerid);
+        })
+        .catch(function (error) {
+            //  console.error("Error adding document: ", error);
+        });
+});
+
+pitcherProjections.forEach(function (obj) {
+    db.collection("pitchers").add({
+            playerid: obj.playerid,
+            name: obj.Name,
+            team: obj.Team,
+            W: obj.W,
+            L: obj.L,
+            ERA: obj.ERA,
+            GS: obj.GS,
+            SV: obj.SV,
+            IP: obj.IP,
+            H: obj.H,
+            ER: obj.ER,
+            HR: obj.HR,
+            SO: obj.SO,
+            BB: obj.BB,
+            WHIP: obj.WHIP,
+            FIP: obj.FIP,
+            WAR: obj.WAR
+        }).then(function (docRef) {
+            // console.log("Document written with ID: ", docRef.playerid);
+        })
+        .catch(function (error) {
+            // console.error("Error adding document: ", error);
+        });
+});
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    batters
+    batters,
+    pitchers,
 }

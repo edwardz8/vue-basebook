@@ -4,7 +4,7 @@ import Vuex from 'vuex';
 import mutations from './mutations';
 import actions from './actions';
 import getters from './getters'; */
-import batterProjections from '../../public/steamerprojections_2020.json'
+import batterProjections from '../../public/batters_2020.json'
 import pitcherProjections from '../../public/pitchers_2020.json'
 
 Vue.use(Vuex);
