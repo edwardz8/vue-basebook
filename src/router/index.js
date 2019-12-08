@@ -1,11 +1,12 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 import firebase from 'firebase'
 
-import Login from '../components/Login.vue';
-import Profile from '../components/Profile.vue';
-import Home from '../views/Home.vue';
-import Players from '../views/Players.vue';
+import Login from '../components/Login.vue'
+import Profile from '../components/Profile.vue'
+import Home from '../views/Home.vue'
+import Players from '../views/Players.vue'
+import PlayerProfile from '../views/PlayerProfile.vue'
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,12 @@ const routes = [{
     path: '/players',
     name: 'Players',
     component: Players,
+  },
+  {
+    path: '/player/:id',
+    name: 'PlayerProfile',
+    component: PlayerProfile,
+    props: true
   }
 ];
 

@@ -23,13 +23,13 @@ const currentUser = auth.currentUser
 
 // firebase collections
 const usersCollection = db.collection('users')
-const batters = db.collection('batters')
-const pitchers = db.collection('pitchers')
+// const batters = db.collection('batters')
+// const pitchers = db.collection('pitchers')
 
 const batterProjections = require('../public/batters_2020.json');
 const pitcherProjections = require('../public/pitchers_2020.json');
 
-batterProjections.forEach(function (obj) {
+/* batterProjections.forEach(function (obj) {
     db.collection("batters").add({
             playerid: obj.playerid,
             name: obj.Name,
@@ -89,13 +89,13 @@ pitcherProjections.forEach(function (obj) {
         .catch(function (error) {
             // console.error("Error adding document: ", error);
         });
-});
+}); */
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
-    batters,
-    pitchers,
+    /* batters,
+    pitchers, */
 }

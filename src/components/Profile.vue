@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 import firebase from "firebase";
 
 export default {
@@ -16,10 +16,7 @@ export default {
     };
   },
   computed: {
-    // map this.user to this.$store.getters.user
-    ...mapGetters({
-      user: "user"
-    })
+    // ...mapGetters this.user to this.$store.getters.user
   }
 };
 </script>

@@ -1,1 +1,0 @@
-export const ADD_TO_LIKES = 'ADD_TO_LIKES'

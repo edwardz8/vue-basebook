@@ -1,96 +1,64 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-/* import * as types from './mutation-types'
-import mutations from './mutations';
-import actions from './actions';
-import getters from './getters'; */
 import batterProjections from '../../public/batters_2020.json'
-import pitcherProjections from '../../public/pitchers_2020.json'
+/* import pitchers from './modules/pitchers'
+import favorites from './modules/favorites' */
+import players from '../api/players'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+  /*  modules: {
+     batters,
+     pitchers,
+     favorites
+   }, */
   state: {
-    added: [],
     user: {
       loggedIn: false,
       data: null,
-      favoriteCards: []
     },
-    playerCards: {
-      batterProjections,
-      pitcherProjections,
-    }
+    batters: batterProjections,
+    favoriteBatters: []
   },
   getters: {
     user(state) {
       return state.user;
     },
-    allBatterCards: state => state.batterProjections,
-    allPitcherCards: state => state.pitcherProjections,
-    getNumberOfBatterCards: state => (state.allBatterCards) ? state.allBatterCards.length : 0,
-    getNumberOfPitcherCards: state => (state.allPitcherCards) ? state.allPitcherCards.length : 0,
-    cartProducts: state => {
-      return state.added.map(({
-        playerid,
-        quantity
-      }) => {
-        const batterCard = state.allBatterCards.find(p => p.playerid === playerid)
-        const pitcherCard = state.allPitcherCards.find(p => p.playerid === playerid)
-
+    batters(state) {
+      return state.batters;
+    },
+    /* favoriteBatters(state, getters) {
+      return state.batters.map(favBatter => {
+        const batter = state.batters.favorites.find(batter => batter.playerid === favBatter.playerid)
         return {
-          batterName: batterCard.Name,
-          batterTeam: batterCard.Team,
-          pitcherName: pitcherCard.Name,
-          pitcherTeam: pitcherCard.Team,
-
+          playerid: batter.playerid,
+          name: batter.Name,
+          team: batter.Team
         }
       })
-    },
-    batterCards: state => {
-      return state.batterProjections
-    },
-    pitcherCards: state => {
-      return state.pitcherProjections
-    },
+    } */
   },
   mutations: {
+    // mutations are responsible for state changes
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
     },
     SET_USER(state, data) {
-      state.user.date = data;
+      state.user.data = data;
     },
-    ADD_PITCHER_CARD(state, {
-      playerid
-    }) {
-      const record = state.added.find(p => p.playerid === playerid)
-
-      if (!record) {
-        state.added.push({
-          playerid,
-          quantity: 1
-        })
-      } else {
-        record.quantity++
-      }
+    setBatters(state, batters) {
+      Vue.set(state, 'batters', batters);
     },
-    ADD_BATTER_CARD(state, {
-      playerid
-    }) {
-      const record = state.added.find(p => p.playerid === playerid)
-
-      if (!record) {
-        state.added.push({
-          playerid,
-          quantity: 1
-        })
-      } else {
-        record.quantity++
-      }
+    addBatter(state, batter) {
+      Vue.set(state.batters, 'Name', batter.Name);
+      Vue.set(state.batters, 'Team', batter.Team);
+      Vue.set(state.batters, 'playerid', batter.playerid);
+      state.batters.unshift(state.favoriteBatters);
     },
   },
   actions: {
+    // actions are responsible for when mutations are fired
     fetchUser({
       commit
     }, user) {
@@ -104,20 +72,33 @@ export default new Vuex.Store({
         commit('SET_USER', null);
       }
     },
-    addPitcherCard({
+    /* fetchBatters({
       commit
-    }, pitcherCard) {
-      commit(ADD_PITCHER_CARD, {
-        playerid: pitcherCard.playerid
+    }) {
+      return new Promise((resolve, reject) => {
+        // make the call and call setBatters mutation
+        players.getBatters(batters => {
+          commit('setBatters', batters)
+          resolve()
+        })
       })
+    }, */
+    addBatter(context, batter) {
+      context.commit('addBatter', batter)
     },
-    addBatterCard({
+    fetchPitchers({
       commit
-    }, batterCard) {
-      commit(ADD_BATTER_CARD, {
-        playerid: batterCard.playerid
+    }) {
+      return new Promise((resolve, reject) => {
+        // make the call and call setBatters mutation
+        players.getPitchers(pitchers => {
+          commit('setPitchers', pitchers)
+          resolve()
+        })
       })
     },
   },
   modules: {}
 });
+
+export const namespaced = true
