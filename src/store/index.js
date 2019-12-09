@@ -1,43 +1,29 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import batterProjections from '../../public/batters_2020.json'
-/* import pitchers from './modules/pitchers'
-import favorites from './modules/favorites' */
 import players from '../api/players'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  /*  modules: {
-     batters,
-     pitchers,
-     favorites
-   }, */
   state: {
+    batters: batterProjections,
+    favoriteBatters: [],
+    currentBatter: {},
+    comments: [],
     user: {
       loggedIn: false,
       data: null,
     },
-    batters: batterProjections,
-    favoriteBatters: []
   },
   getters: {
     user(state) {
       return state.user;
     },
-    batters(state) {
-      return state.batters;
-    },
-    /* favoriteBatters(state, getters) {
-      return state.batters.map(favBatter => {
-        const batter = state.batters.favorites.find(batter => batter.playerid === favBatter.playerid)
-        return {
-          playerid: batter.playerid,
-          name: batter.Name,
-          team: batter.Team
-        }
-      })
-    } */
+    getBatters: state => state.batters,
+    getFavoriteBatters: state => state.favoriteBatters,
+    getCurrentBatter: state => state.currentBatter,
+    getComments: state => state.comments
   },
   mutations: {
     // mutations are responsible for state changes
@@ -47,15 +33,15 @@ export default new Vuex.Store({
     SET_USER(state, data) {
       state.user.data = data;
     },
-    setBatters(state, batters) {
-      Vue.set(state, 'batters', batters);
+    ADD_BATTER_TO_FAVORITES(state, batter) {
+      state.favoriteBatters.push(batter);
     },
-    addBatter(state, batter) {
-      Vue.set(state.batters, 'Name', batter.Name);
-      Vue.set(state.batters, 'Team', batter.Team);
-      Vue.set(state.batters, 'playerid', batter.playerid);
-      state.batters.unshift(state.favoriteBatters);
+    REMOVE_BATTER_FROM_FAVORITES(state, index) {
+      state.favoriteBatters.splice(index, 1);
     },
+    CURRENT_BATTER(state, batter) {
+      state.currentBatter = batter;
+    }
   },
   actions: {
     // actions are responsible for when mutations are fired
@@ -72,33 +58,14 @@ export default new Vuex.Store({
         commit('SET_USER', null);
       }
     },
-    /* fetchBatters({
-      commit
-    }) {
-      return new Promise((resolve, reject) => {
-        // make the call and call setBatters mutation
-        players.getBatters(batters => {
-          commit('setBatters', batters)
-          resolve()
-        })
-      })
-    }, */
-    addBatter(context, batter) {
-      context.commit('addBatter', batter)
+    addBatterToFavorites: (context, batter) => {
+      context.commit('ADD_BATTER_TO_FAVORITES', batter, batter.playerid);
     },
-    fetchPitchers({
-      commit
-    }) {
-      return new Promise((resolve, reject) => {
-        // make the call and call setBatters mutation
-        players.getPitchers(pitchers => {
-          commit('setPitchers', pitchers)
-          resolve()
-        })
-      })
+    removeBatter: (context, index) => {
+      context.commit('REMOVE_BATTER_FROM_FAVORITES', index);
     },
+    currentBatter: (context, batter) => {
+      context.commit('CURRENT_BATTER', batter);
+    }
   },
-  modules: {}
 });
-
-export const namespaced = true

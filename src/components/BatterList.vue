@@ -1,12 +1,37 @@
 <template>
   <div class="container mx-auto py-2">
-    <!-- Favorite -->
-    <div>
+    <!-- Favorites -->
+    <div class="horizontal-row">
       <div
-        v-for="(fav, index) in favoriteBatters"
-        :key="`fav.playerid-${index}`"
+        class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
+        v-for="(fav, index) in getFavoriteBatters"
+        :key="index"
       >
-        {{ fav.playerid }}
+        <div class="sm:flex sm:items-center px-6 py-4">
+          <p class="logo">
+            <i :class="matchTeamLogo(fav.Team)"></i>
+          </p>
+          <div class="ml-5 text-center sm:text-left sm:flex-grow">
+            <div class="mb-4">
+              <p class="font-sans text-xl leading-tight mb-2">
+                {{ fav.Name }}
+              </p>
+              <p class="font-sans text-sm leading-tight mb-2">
+                WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}
+              </p>
+              <p class="font-sans text-sm leading-tight text-grey-dark">
+                {{ fav.Team }}
+              </p>
+            </div>
+            <div class="sm:flex sm:items-center flex-wrap">
+              <button
+                class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
+              >
+                Unfollow
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -27,11 +52,10 @@
 
     <!-- Batter Grid List -->
     <div class="grid-row">
-      <img v-if="loading" src="https://i.imgur.com/JfPpwOA.gif" />
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="player in batters"
-        :key="player.playerid"
+        v-for="batter in getBatters"
+        :key="batter.playerid"
       >
         <!-- <router-link
           :to="{
@@ -41,26 +65,26 @@
         > -->
         <div class="sm:flex sm:items-center px-6 py-4">
           <p class="logo">
-            <i :class="matchTeamLogo(player.Team)"></i>
+            <i :class="matchTeamLogo(batter.Team)"></i>
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
               <p class="font-sans text-xl leading-tight mb-2">
-                {{ player.Name }}
+                {{ batter.Name }}
               </p>
               <p class="font-sans text-sm leading-tight mb-2">
-                WAR: {{ player.WAR }} - AVG: {{ player.AVG }}
+                WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}
               </p>
               <p class="font-sans text-sm leading-tight text-grey-dark">
-                {{ player.Team }}
+                {{ batter.Team }}
               </p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
-                @click="addBatter(batters)"
+                @click="addBatterToFavorites(batter)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
               >
-                Track
+                Follow
               </button>
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
@@ -78,27 +102,24 @@
 
 <script>
 import batterProjections from "../../public/batters_2020.json";
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { db } from "../db";
 import methods from "../methods";
 import players from "@/api/players";
 
+/* :key="`fav.playerid-${index}`" */
+
 export default {
+  // props: ["batters"],
   name: "BatterList",
-  props: {
-    player: { type: Object }
-  },
   data() {
     return {
       search: "",
-      batters: batterProjections,
-      team: batterProjections.Team,
-      loading: false,
-      // batters: [],
-      favoriteBatters: []
+      team: batterProjections.Team
     };
   },
   computed: {
+    ...mapGetters(["getBatters", "getFavoriteBatters"])
     /* filteredData() {
       if (this.search) {
         return this.batters.filter(p => {
@@ -118,26 +139,11 @@ export default {
   },
   methods: {
     ...methods,
-    addBatter(Name, Team, playerid) {
-      this.$store.dispatch("addBatter", {
-        Name: Name,
-        Team: Team,
-        playerid
-      });
-    }
-    //...mapActions(["addBatter"])
-    /* addBatterToFavorites() {
-      this.$store.dispatch("addBatter", null, { root: true });
-    } */
+    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"])
+  },
+  created() {
+    this.$store.getters.getBatters;
   }
-  /* created() {
-    this.loading = true;
-    players.getBatters(batters => {
-      this.batters = batters;
-      this.loading = false;
-    });
-    // this.$store.dispatch("fetchBatters");
-  } */
 };
 </script>
 
@@ -155,6 +161,11 @@ export default {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+}
+.horizontal-row {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
 }
 .logo {
   font-size: 5rem;
