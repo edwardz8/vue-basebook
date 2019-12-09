@@ -1,67 +1,111 @@
 <template>
   <div class="container">
-    <!-- profile card begin -->
-    <div
-      class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card"
-    >
-      <img src="../assets/fenway.jpg" class="w-full" />
-      <div class="flex justify-center -mt-8">
-        <img
-          src="../assets/ted-williams.jpg"
-          width="80px"
-          height="80px"
-          class="rounded-full border-solid border-white border-2 -mt-3"
-        />
-      </div>
-      <div class="text-center px-3 pb-6 pt-2">
-        <h3 class="text-black text-sm bold font-sans">Ted Williams</h3>
-        <p class="mt-2 font-sans font-light text-grey-dark">
-          Basebook member since 2019
-        </p>
-      </div>
-      <div class="flex justify-center pb-3 text-grey-dark">
-        <div class="text-center mr-3 border-r pr-3">
-          <h2>8</h2>
-          <span>Favorites</span>
+    <div class="flex md:flex-row-reverse flex-wrap layout">
+      <!-- profile card -->
+      <div class="w-full md:w-1/4 card">
+        <div class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card">
+          <img src="../assets/fenway.jpg" class="w-full" />
+          <div class="flex justify-center -mt-8">
+            <img
+              src="../assets/ted-williams.jpg"
+              width="80px"
+              height="80px"
+              class="rounded-full border-solid border-white border-2 -mt-3"
+            />
+          </div>
+          <div class="text-center px-3 pb-6 pt-2">
+            <h3 class="text-black text-sm bold font-sans">Ted Williams</h3>
+            <p class="mt-2 font-sans font-light text-grey-dark">Basebook member since 2019</p>
+          </div>
+          <div class="flex justify-center pb-3 text-grey-dark">
+            <div class="text-center mr-3 border-r pr-3">
+              <h2>8</h2>
+              <span>Favorites</span>
+            </div>
+            <div class="text-center">
+              <h2>42</h2>
+              <span>Friends</span>
+            </div>
+          </div>
         </div>
-        <div class="text-center">
-          <h2>42</h2>
-          <span>Friends</span>
+      </div>
+      <!-- profile card end -->
+
+      <!-- Favorites -->
+      <div class="w-full md:w-3/4">
+        <div class="favorites-grid">
+          <div
+            class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
+            v-for="(fav, index) in getFavoriteBatters"
+            :key="index"
+          >
+            <div class="sm:flex sm:items-center px-6 py-4">
+              <p class="logo">
+                <!-- <i :class="matchTeamLogo(fav.Team)"></i> -->
+              </p>
+              <div class="ml-5 text-center sm:text-left sm:flex-grow">
+                <div class="mb-4">
+                  <p class="font-sans text-xl leading-tight mb-2">{{ fav.Name }}</p>
+                  <p
+                    class="font-sans text-sm leading-tight mb-2"
+                  >WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}</p>
+                  <p class="font-sans text-sm leading-tight text-grey-dark">{{ fav.Team }}</p>
+                </div>
+                <div class="sm:flex sm:items-center flex-wrap">
+                  <button
+                    @click="remove(index)"
+                    class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
+                  >Unfollow</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- profile card end -->
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from "vuex";
-import firebase from "firebase";
+import batterProjections from "../../public/batters_2020.json";
+import { mapGetters, mapActions } from "vuex";
+import { db } from "../db";
+import methods from "../methods";
+import players from "@/api/players";
 
 export default {
   name: "Profile",
   data() {
     return {
-      favorites: []
+      team: batterProjections.Team,
+      remove: this.remove
     };
   },
   computed: {
-    // ...mapGetters this.user to this.$store.getters.user
+    ...mapGetters(["getFavoriteBatters"])
+  },
+  methods: {
+    methods: {
+      ...methods,
+      ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
+      remove(index) {
+        this.removeBatter(index);
+      }
+    }
+  },
+  watch: {
+    remove(index) {
+      this.removeBatter(index);
+    }
   }
 };
 </script>
 
 <style scoped>
-.container {
-  margin: auto;
-  width: 50%;
-}
-.grid {
-  display: flex;
-  justify-content: space-between;
-}
-.profile-card {
-  margin: auto;
-  width: 50%;
+@media only screen and (max-width: 400px) {
+  .profile-card {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 </style>

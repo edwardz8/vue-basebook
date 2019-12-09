@@ -1,5 +1,4 @@
-[
-    {
+[{
         "Name": "Jacob deGrom",
         "Team": "Mets",
         "W": 15,
@@ -300,7 +299,7 @@
     },
     {
         "Name": "Stephen Strasburg",
-        "Team": "",
+        "Team": "Nationals",
         "W": 13,
         "L": 10,
         "ERA": 3.73,

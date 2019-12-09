@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto py-2">
     <!-- Favorites -->
-    <div class="horizontal-row">
+    <!--    <div class="horizontal-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
         v-for="(fav, index) in getFavoriteBatters"
@@ -13,35 +13,29 @@
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">
-                {{ fav.Name }}
-              </p>
-              <p class="font-sans text-sm leading-tight mb-2">
-                WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}
-              </p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">
-                {{ fav.Team }}
-              </p>
+              <p class="font-sans text-xl leading-tight mb-2">{{ fav.Name }}</p>
+              <p
+                class="font-sans text-sm leading-tight mb-2"
+              >WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark">{{ fav.Team }}</p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
+                @click="remove(index)"
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-              >
-                Unfollow
-              </button>
+              >Unfollow</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- SearchBox -->
     <div class="searchbox">
       <label
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-password"
-        >Search By Team or Player</label
-      >
+      >Search By Team or Player</label>
       <input
         v-model="search"
         @keyup.native="getFilteredData"
@@ -62,35 +56,27 @@
             name: 'PlayerProfile',
             params: { playerid: batters.playerid }
           }"
-        > -->
+        >-->
         <div class="sm:flex sm:items-center px-6 py-4">
           <p class="logo">
             <i :class="matchTeamLogo(batter.Team)"></i>
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">
-                {{ batter.Name }}
-              </p>
-              <p class="font-sans text-sm leading-tight mb-2">
-                WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}
-              </p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">
-                {{ batter.Team }}
-              </p>
+              <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
+              <p
+                class="font-sans text-sm leading-tight mb-2"
+              >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark">{{ batter.Team }}</p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
                 @click="addBatterToFavorites(batter)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-              >
-                Follow
-              </button>
+              >Follow</button>
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-              >
-                Comment
-              </button>
+              >Comment</button>
             </div>
           </div>
         </div>
@@ -107,10 +93,8 @@ import { db } from "../db";
 import methods from "../methods";
 import players from "@/api/players";
 
-/* :key="`fav.playerid-${index}`" */
-
 export default {
-  // props: ["batters"],
+  props: ["batters"],
   name: "BatterList",
   data() {
     return {
@@ -139,7 +123,10 @@ export default {
   },
   methods: {
     ...methods,
-    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"])
+    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
+    remove(index) {
+      this.removeBatter(index);
+    }
   },
   created() {
     this.$store.getters.getBatters;
@@ -161,11 +148,6 @@ export default {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-}
-.horizontal-row {
-  display: flex;
-  flex-direction: row;
-  overflow-x: auto;
 }
 .logo {
   font-size: 5rem;
