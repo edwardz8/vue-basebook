@@ -20,36 +20,35 @@
         v-for="batter in filtered"
         :key="batter.playerid"
       >
-        <!-- <router-link
-          :to="{
-            name: 'PlayerProfile',
-            params: { playerid: batters.playerid }
-          }"
-        >-->
-        <div class="sm:flex sm:items-center px-6 py-4">
-          <p class="logo">
-            <i :class="matchTeamLogo(batter.Team)"></i>
-          </p>
-          <div class="ml-5 text-center sm:text-left sm:flex-grow">
-            <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
-              <p
-                class="font-sans text-sm leading-tight mb-2"
-              >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">{{ batter.Team }}</p>
-            </div>
-            <div class="sm:flex sm:items-center flex-wrap">
-              <button
-                @click="addBatterToFavorites(batter)"
-                class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-              >Track</button>
-              <button
-                class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-              >Comment</button>
+        <router-link to="/player/:id">
+          <div
+            class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300"
+            @click="viewCurrentBatter(batter)"
+          >
+            <p class="logo">
+              <i :class="matchTeamLogo(batter.Team)"></i>
+            </p>
+            <div class="ml-5 text-center sm:text-left sm:flex-grow">
+              <div class="mb-4">
+                <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
+                <p
+                  class="font-sans text-sm leading-tight mb-2"
+                >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
+                <p class="font-sans text-sm leading-tight text-grey-dark">{{ batter.Team }}</p>
+              </div>
+              <div class="sm:flex sm:items-center flex-wrap">
+                <button
+                  @click="addBatterToFavorites(batter)"
+                  class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
+                >Track</button>
+                <button
+                  disabled
+                  class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
+                >Comment</button>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- </router-link> -->
+        </router-link>
       </div>
     </div>
   </div>
@@ -72,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getBatters", "getFavoriteBatters"]),
+    ...mapGetters(["getBatters", "getCurrentBatter", "getFavoriteBatters"]),
     filtered() {
       return this.getBatters.filter(p => {
         return this.search
@@ -89,6 +88,9 @@ export default {
   methods: {
     ...methods,
     ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
+    viewCurrentBatter(batter) {
+      this.currentBatter(batter);
+    },
     remove(index) {
       this.removeBatter(index);
     }

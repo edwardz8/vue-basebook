@@ -89,7 +89,7 @@ export default new Vuex.Store({
       context.commit('REMOVE_BATTER_FROM_FAVORITES', index);
     },
     currentBatter: (context, batter) => {
-      context.commit('CURRENT_BATTER', batter);
+      context.commit('CURRENT_BATTER', batter, batter.playerid);
     },
     // pitchers
     addPitcherToFavorites: (context, pitcher) => {
@@ -99,7 +99,7 @@ export default new Vuex.Store({
       context.commit('REMOVE_PITCHER_FROM_FAVORITES', index);
     },
     currentPitcher: (context, pitcher) => {
-      context.commit('CURRENT_PITCHER', pitcher);
+      context.commit('CURRENT_PITCHER', pitcher.playerid);
     },
     // comments
     addComment: (context, comment) => {
