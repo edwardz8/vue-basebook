@@ -8,8 +8,6 @@
           <div class="flex justify-center -mt-8">
             <img
               src="../assets/ted-williams.jpg"
-              width="80px"
-              height="80px"
               class="rounded-full border-solid border-white border-2 -mt-3"
             />
           </div>
