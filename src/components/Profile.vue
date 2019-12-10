@@ -77,23 +77,15 @@ export default {
   name: "Profile",
   data() {
     return {
-      team: batterProjections.Team,
-      remove: this.remove
+      team: batterProjections.Team
     };
   },
   computed: {
     ...mapGetters(["getFavoriteBatters"])
   },
   methods: {
-    methods: {
-      ...methods,
-      ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
-      remove(index) {
-        this.removeBatter(index);
-      }
-    }
-  },
-  watch: {
+    ...methods,
+    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
     remove(index) {
       this.removeBatter(index);
     }

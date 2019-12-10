@@ -8,7 +8,6 @@
       >Search By Team or Player</label>
       <input
         v-model="search"
-        @keyup.native="getFilteredData"
         class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
         type="text"
       />
@@ -18,7 +17,7 @@
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="player in filteredData"
+        v-for="player in filtered"
         :key="player.playerid"
       >
         <div class="sm:flex sm:items-center px-6 py-4">
@@ -51,42 +50,44 @@
 
 <script>
 import pitcherProjections from "../../public/pitchers_2020.json";
-import methods from "../methods";
+import { mapActions, mapGetters } from "vuex";
 import { db } from "../db";
+import methods from "../methods";
+import players from "@/api/players";
 
 export default {
   name: "PitcherList",
-  props: {
-    loading: Boolean
-  },
   data() {
     return {
       search: "",
-      pitchers: pitcherProjections,
       team: pitcherProjections.Team,
       favorites: []
     };
   },
   computed: {
-    filteredData() {
-      if (this.search) {
-        return this.pitchers.filter(p => {
-          return this.search
-            .toLowerCase()
-            .split(" ")
-            .every(
-              v =>
-                p.Name.toLowerCase().includes(v) ||
-                p.Team.toLowerCase().includes(v)
-            );
-        });
-      } else {
-        return this.pitchers;
-      }
+    ...mapGetters(["getPitchers", "getFavoritePitchers"]),
+    filtered() {
+      return this.getPitchers.filter(p => {
+        return this.search
+          .toLowerCase()
+          .split(" ")
+          .every(
+            v =>
+              p.Name.toLowerCase().includes(v) ||
+              p.Team.toLowerCase().includes(v)
+          );
+      });
     }
   },
   methods: {
-    ...methods
+    ...methods,
+    ...mapActions(["addPitcherToFavorites", "currentPitcher", "removePitcher"]),
+    remove(index) {
+      this.removePitcher(index);
+    }
+  },
+  created() {
+    this.$store.getters.getPitchers;
   }
 };
 </script>

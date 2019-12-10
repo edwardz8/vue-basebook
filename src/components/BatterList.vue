@@ -1,35 +1,5 @@
 <template>
   <div class="container mx-auto py-2">
-    <!-- Favorites -->
-    <!--    <div class="horizontal-row">
-      <div
-        class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="(fav, index) in getFavoriteBatters"
-        :key="index"
-      >
-        <div class="sm:flex sm:items-center px-6 py-4">
-          <p class="logo">
-            <i :class="matchTeamLogo(fav.Team)"></i>
-          </p>
-          <div class="ml-5 text-center sm:text-left sm:flex-grow">
-            <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">{{ fav.Name }}</p>
-              <p
-                class="font-sans text-sm leading-tight mb-2"
-              >WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}</p>
-              <p class="font-sans text-sm leading-tight text-grey-dark">{{ fav.Team }}</p>
-            </div>
-            <div class="sm:flex sm:items-center flex-wrap">
-              <button
-                @click="remove(index)"
-                class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-              >Unfollow</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>-->
-
     <!-- SearchBox -->
     <div class="searchbox">
       <label
@@ -38,7 +8,6 @@
       >Search By Team or Player</label>
       <input
         v-model="search"
-        @keyup.native="getFilteredData"
         class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
         type="text"
       />
@@ -48,7 +17,7 @@
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="batter in getBatters"
+        v-for="batter in filtered"
         :key="batter.playerid"
       >
         <!-- <router-link
@@ -73,7 +42,7 @@
               <button
                 @click="addBatterToFavorites(batter)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-              >Follow</button>
+              >Track</button>
               <button
                 class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
               >Comment</button>
@@ -103,23 +72,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getBatters", "getFavoriteBatters"])
-    /* filteredData() {
-      if (this.search) {
-        return this.batters.filter(p => {
-          return this.search
-            .toLowerCase()
-            .split(" ")
-            .every(
-              v =>
-                p.Name.toLowerCase().includes(v) ||
-                p.Team.toLowerCase().includes(v)
-            );
-        });
-      } else {
-        return this.batters;
-      }
-    }, */
+    ...mapGetters(["getBatters", "getFavoriteBatters"]),
+    filtered() {
+      return this.getBatters.filter(p => {
+        return this.search
+          .toLowerCase()
+          .split(" ")
+          .every(
+            v =>
+              p.Name.toLowerCase().includes(v) ||
+              p.Team.toLowerCase().includes(v)
+          );
+      });
+    }
   },
   methods: {
     ...methods,

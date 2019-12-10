@@ -96,3 +96,14 @@ export default {
         }
     }
 }
+
+export function getByKeyword(batters, keyword) {
+    const search = keyword.trim().toLowerCase()
+    if (!search.length) return batters
+    return batters.filter(i => i.Name.toLowerCase().indexOf(search), i.Team.toLowerCase().indexOf(search))
+}
+
+export function getByTeam(batters, Team) {
+    if (!Team) return batters
+    return batters.filter(i => i.Team === Team)
+}

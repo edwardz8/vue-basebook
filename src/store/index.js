@@ -1,16 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import batterProjections from '../../public/batters_2020.json'
-import players from '../api/players'
+import pitcherProjections from '../../public/pitchers_2020.json'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     batters: batterProjections,
+    pitchers: pitcherProjections,
     favoriteBatters: [],
+    favoritePitchers: [],
     currentBatter: {},
+    currentPitchers: {},
     comments: [],
+    search: '',
     user: {
       loggedIn: false,
       data: null,
@@ -20,10 +24,16 @@ export default new Vuex.Store({
     user(state) {
       return state.user;
     },
+    // batters
     getBatters: state => state.batters,
     getFavoriteBatters: state => state.favoriteBatters,
     getCurrentBatter: state => state.currentBatter,
-    getComments: state => state.comments
+    // pitchers
+    getPitchers: state => state.pitchers,
+    getFavoritePitchers: state => state.favoritePitchers,
+    getCurrentPitcher: state => state.currentPitchers,
+    // comments
+    getComments: state => state.comments,
   },
   mutations: {
     // mutations are responsible for state changes
@@ -41,6 +51,19 @@ export default new Vuex.Store({
     },
     CURRENT_BATTER(state, batter) {
       state.currentBatter = batter;
+    },
+    // PITCHERS
+    ADD_PITCHER_TO_FAVORITES(state, pitcher) {
+      state.favoritePitchers.push(pitcher);
+    },
+    REMOVE_PITCHER_FROM_FAVORITES(state, index) {
+      state.favoritePitchers.splice(index, 1);
+    },
+    CURRENT_PITCHER(state, pitcher) {
+      state.currentPitcher = pitcher;
+    },
+    ADD_COMMENT(state, comment) {
+      state.comments = comment;
     }
   },
   actions: {
@@ -58,6 +81,7 @@ export default new Vuex.Store({
         commit('SET_USER', null);
       }
     },
+    // batters
     addBatterToFavorites: (context, batter) => {
       context.commit('ADD_BATTER_TO_FAVORITES', batter, batter.playerid);
     },
@@ -66,6 +90,20 @@ export default new Vuex.Store({
     },
     currentBatter: (context, batter) => {
       context.commit('CURRENT_BATTER', batter);
+    },
+    // pitchers
+    addPitcherToFavorites: (context, pitcher) => {
+      context.commit('ADD_PITCHER_TO_FAVORITES', pitcher, pitcher.playerid);
+    },
+    removePitcher: (context, index) => {
+      context.commit('REMOVE_PITCHER_FROM_FAVORITES', index);
+    },
+    currentPitcher: (context, pitcher) => {
+      context.commit('CURRENT_PITCHER', pitcher);
+    },
+    // comments
+    addComment: (context, comment) => {
+      context.commit('ADD_COMMENT', comment, comment.id)
     }
   },
 });
