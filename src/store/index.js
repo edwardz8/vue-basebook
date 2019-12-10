@@ -12,7 +12,7 @@ export default new Vuex.Store({
     favoriteBatters: [],
     favoritePitchers: [],
     currentBatter: {},
-    currentPitchers: {},
+    currentPitcher: {},
     comments: [],
     search: '',
     user: {
@@ -31,7 +31,7 @@ export default new Vuex.Store({
     // pitchers
     getPitchers: state => state.pitchers,
     getFavoritePitchers: state => state.favoritePitchers,
-    getCurrentPitcher: state => state.currentPitchers,
+    getCurrentPitcher: state => state.currentPitcher,
     // comments
     getComments: state => state.comments,
   },
