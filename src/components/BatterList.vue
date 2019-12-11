@@ -20,7 +20,7 @@
         v-for="batter in filtered"
         :key="batter.playerid"
       >
-        <router-link to="/player/:id">
+        <router-link to="/player">
           <div
             class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300"
             @click="viewCurrentBatter(batter)"
@@ -31,10 +31,10 @@
             <div class="ml-5 text-center sm:text-left sm:flex-grow">
               <div class="mb-4">
                 <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
+                <p class="font-sans text-sm leading-tight text-grey-dark mb-2">{{ batter.Team }}</p>
                 <p
-                  class="font-sans text-sm leading-tight mb-2"
+                  class="font-sans text-sm leading-tight"
                 >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
-                <p class="font-sans text-sm leading-tight text-grey-dark">{{ batter.Team }}</p>
               </div>
               <div class="sm:flex sm:items-center flex-wrap">
                 <button

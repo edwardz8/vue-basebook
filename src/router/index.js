@@ -38,7 +38,7 @@ const routes = [{
     component: Players,
   },
   {
-    path: '/player/:id',
+    path: '/player',
     name: 'PlayerProfile',
     component: PlayerProfile,
     props: true
