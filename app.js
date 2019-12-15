@@ -1,12 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const routes = require('./routes/routes')
+// const routes = require('./routes/routes')
 const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const errorHandlers = require('./handlers/errorHandlers')
+// const errorHandlers = require('./handlers/errorHandlers')
 const passport = require('passport')
-require('./handlers/passport')
+// require('./handlers/passport')
 
 const app = express()
 
@@ -23,22 +23,30 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(passport.initialize())
+require('./config/passport')(passport)
 
 const db = require('./config/keys').mongoURI;
 mongoose.connect(db, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 }).then(() => {
     console.log(`Database connnected successfully ${db}`)
+}).catch(err => {
+    console.log(`Unable to connect ${err}`)
 })
 
-app.use('/', routes)
 
-app.use(errorHandlers.notFound)
+const users = require('./routes/api/users');
+app.use('/api/users', users);
 
-if (app.get('env') === 'development') {
-    app.use(errorHandlers.developmentErrors)
-}
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+})
 
-app.use(errorHandlers.productionErrors)
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`)
+})
 
 module.exports = app
