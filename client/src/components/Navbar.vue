@@ -16,7 +16,7 @@
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
         >Players</router-link>
       </li>
-      <li class="flex-1 mr-2" v-if="isLoggedIn">
+      <li class="flex-1 mr-2">
         <router-link
           to="/profile"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
@@ -49,17 +49,18 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   computed: {
     //...mapGetters(["isLoggedIn"])
-    isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
+    isLoggedIn: function() {
+      return this.$store.getters.isLoggedIn;
+    }
   },
   methods: {
     // ...mapActions(["logout"]),
-    logout: function () {
-      this.$store.dispatch('logout')
-      .then(() => {
-        this.$router.push('/login')
-      })
-    },
-   /*  logoutUser() {
+    logout: function() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
+    /*  logoutUser() {
       this.logout();
     } */
   }

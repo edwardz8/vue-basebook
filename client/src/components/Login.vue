@@ -1,14 +1,13 @@
 <template>
   <div class="account-form mt-6">
     <!-- Login Form -->
-    <form @submit.prevent="login" class="w-full max-w-md">
+    <form class="w-full max-w-md">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="email"
-            >Email</label
-          >
+          >Email</label>
         </div>
         <div class="md:w-2/3">
           <input
@@ -24,8 +23,7 @@
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="password"
-            >Password</label
-          >
+          >Password</label>
         </div>
         <div class="md:w-2/3">
           <input
@@ -44,15 +42,11 @@
           <button
             type="submit"
             class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
-          >
-            Login
-          </button>
+          >Login</button>
         </div>
       </div>
       <div class="options">
-        <router-link to="/register" class="register text-blue-500"
-          >Create Account</router-link
-        >
+        <router-link to="/register" class="register text-blue-500">Create Account</router-link>
       </div>
     </form>
   </div>
@@ -66,36 +60,12 @@ export default {
   name: "Login",
   data() {
     return {
-      // name: "",
       email: "",
       password: ""
     };
   },
   methods: {
     // ...mapActions(["login"]),
-    login: function() {
-      let email = this.email
-      let password = this.password
-      this.$store.dispatch('login', {email, password})
-      .then(() => this.$router.push('/'))
-      .catch(err => console.log(err))
-    },
-
-    loginUser() {
-      let user = {
-        name: this.name,
-        password: this.password
-      };
-      this.login(user)
-        .then(res => {
-          if (res.data.success) {
-            this.$router.push("profile");
-          }
-        })
-        .catch(err => {
-          console.log(err.response);
-        });
-    }
   }
 };
 </script>

@@ -2,7 +2,6 @@
   <div id="app">
     <Navbar></Navbar>
     <div class="container">
-      <Errors v-if="error" :msg="error" />
       <router-view />
     </div>
   </div>
@@ -12,12 +11,10 @@
 import { mapGetters, mapActions } from "vuex";
 import firebase from "firebase";
 import Navbar from "@/components/Navbar";
-import Errors from "@/components/Errors";
 
 export default {
   components: {
-    Navbar,
-    Errors
+    Navbar
   },
   computed: {
     ...mapGetters(["error", "isLoggedIn"])
@@ -28,11 +25,11 @@ export default {
       this.logout();
     }
   },
-  created: function () {
-    this.$http.interceptors.response.use(undefined, function (err) {
-      return new Promise(function (resolve, reject) {
+  created: function() {
+    this.$http.interceptors.response.use(undefined, function(err) {
+      return new Promise(function(resolve, reject) {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-          this.$store.dispatch(logout)
+          this.$store.dispatch(logout);
         }
         throw err;
       });

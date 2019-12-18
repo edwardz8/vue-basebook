@@ -83,18 +83,13 @@ export default {
   },
   methods: {
     ...methods,
-    ...mapActions([
-      "getProfile",
-      "addBatterToFavorites",
-      "currentBatter",
-      "removeBatter"
-    ]),
+    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
     remove(index) {
       this.removeBatter(index);
     }
   },
   created() {
-    this.getProfile();
+    // this.getProfile();
   }
 };
 </script>

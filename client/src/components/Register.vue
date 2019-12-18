@@ -1,7 +1,7 @@
 <template>
   <div class="register-form mt-6">
     <div v-if="error">{{ error }}</div>
-    <form action="#" @submit.prevent="register" class="w-full max-w-sm">
+    <form action="#" class="w-full max-w-sm">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
@@ -83,29 +83,6 @@ export default {
   },
   methods: {
     // ...mapActions(["register"]),
-    register: function() {
-      let data = {
-        name: this.name,
-        email: this.email,
-        password: this.password
-      };
-      this.$store
-        .dispatch("register", data)
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
-    },
-    registerUser() {
-      let user = {
-        name: this.name,
-        password: this.password,
-        email: this.email
-      };
-      this.register(user).then(res => {
-        if (res.data.success) {
-          this.$router.push("login");
-        }
-      });
-    }
   }
 };
 </script>
