@@ -1,7 +1,7 @@
 <template>
   <div class="register-form mt-6">
-    <div v-if="error">{{error}}</div>
-    <form action="#" @submit.prevent="registerUser" class="w-full max-w-sm">
+    <div v-if="error">{{ error }}</div>
+    <form action="#" @submit.prevent="register" class="w-full max-w-sm">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
@@ -14,7 +14,7 @@
             v-model="name"
             class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="name"
-            type="name"
+            type="text"
           />
         </div>
       </div>
@@ -56,13 +56,11 @@
         <div class="md:w-1/3"></div>
         <div class="md:w-2/3">
           <button
-            type="login"
             class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
           >Sign Up</button>
         </div>
       </div>
       <div class="options">
-        <!-- <a @click="togglePasswordReset" class="register text-orange-500">Retrieve Password</a> -->
         <router-link to="/" class="register text-blue-500">Back to Login</router-link>
       </div>
     </form>
@@ -84,7 +82,18 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["register"]),
+    // ...mapActions(["register"]),
+    register: function() {
+      let data = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      };
+      this.$store
+        .dispatch("register", data)
+        .then(() => this.$router.push("/"))
+        .catch(err => console.log(err));
+    },
     registerUser() {
       let user = {
         name: this.name,

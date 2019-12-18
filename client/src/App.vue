@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <Navbar />
-    <br />
+    <Navbar></Navbar>
     <div class="container">
       <Errors v-if="error" :msg="error" />
       <router-view />
@@ -21,7 +20,23 @@ export default {
     Errors
   },
   computed: {
-    ...mapGetters(["error"])
+    ...mapGetters(["error", "isLoggedIn"])
+  },
+  methods: {
+    ...mapActions(["logout"]),
+    logoutUser() {
+      this.logout();
+    }
+  },
+  created: function () {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch(logout)
+        }
+        throw err;
+      });
+    });
   }
 };
 </script>
@@ -41,5 +56,18 @@ body {
   padding: 0;
   height: 100%;
   background-color: #f1f1f1;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from 'firebase'
-import store from '../store';
+import store from '../store'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import Profile from '../components/Profile.vue'
@@ -67,7 +67,9 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       // Redirect to the Login Page
-      next('/login');
+      // next('/login');
+      next()
+      return
     } else {
       next();
     }

@@ -1,20 +1,21 @@
 <template>
   <div class="account-form mt-6">
     <!-- Login Form -->
-    <form @submit.prevent="loginUser" class="w-full max-w-md">
+    <form @submit.prevent="login" class="w-full max-w-md">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="email"
-          >Username</label>
+            >Email</label
+          >
         </div>
         <div class="md:w-2/3">
           <input
-            v-model.trim="name"
+            v-model="email"
             class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
-            id="name"
-            type="text"
+            id="email"
+            type="email"
           />
         </div>
       </div>
@@ -23,7 +24,8 @@
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="password"
-          >Password</label>
+            >Password</label
+          >
         </div>
         <div class="md:w-2/3">
           <input
@@ -40,13 +42,17 @@
         <div class="md:w-1/3"></div>
         <div class="md:w-2/3">
           <button
-            type="login"
+            type="submit"
             class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
-          >Login</button>
+          >
+            Login
+          </button>
         </div>
       </div>
       <div class="options">
-        <router-link to="/register" class="register text-blue-500">Create Account</router-link>
+        <router-link to="/register" class="register text-blue-500"
+          >Create Account</router-link
+        >
       </div>
     </form>
   </div>
@@ -60,12 +66,21 @@ export default {
   name: "Login",
   data() {
     return {
-      name: "",
+      // name: "",
+      email: "",
       password: ""
     };
   },
   methods: {
-    ...mapActions(["login"]),
+    // ...mapActions(["login"]),
+    login: function() {
+      let email = this.email
+      let password = this.password
+      this.$store.dispatch('login', {email, password})
+      .then(() => this.$router.push('/'))
+      .catch(err => console.log(err))
+    },
+
     loginUser() {
       let user = {
         name: this.name,
@@ -78,7 +93,7 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response);
         });
     }
   }
