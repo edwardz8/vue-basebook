@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import firebase from 'firebase'
-
+import store from '../store'
 import Login from '../components/Login.vue'
+import Register from '../components/Register.vue'
 import Profile from '../components/Profile.vue'
 import Home from '../views/Home.vue'
 import Players from '../views/Players.vue'
@@ -22,7 +23,18 @@ const routes = [{
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      requiresGuest: true
+    }
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: {
+      requiresGuest: true
+    }
   },
   {
     path: '/profile',
@@ -52,16 +64,25 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  const currentUser = firebase.auth().currentUser
-
-  if (requiresAuth && !currentUser) {
-    next('/login')
-  } else if (requiresAuth && currentUser) {
-    next()
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isLoggedIn) {
+      // Redirect to the Login Page
+      // next('/login');
+      next()
+      return
+    } else {
+      next();
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if (store.getters.isLoggedIn) {
+      // Redirect to the Login Page
+      next('/profile');
+    } else {
+      next();
+    }
   } else {
     next()
   }
-})
+});
 
 export default router;

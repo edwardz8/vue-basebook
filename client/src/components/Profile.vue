@@ -12,8 +12,8 @@
             />
           </div>
           <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-black text-sm bold font-sans">Ted Williams</h3>
-            <p class="mt-2 font-sans font-light text-grey-dark">Basebook member since 2019</p>
+            <h3 class="text-black text-sm bold font-sans">{{ user.name }}</h3>
+            <p class="mt-2 font-sans font-light text-grey-dark">{{ user.email }}</p>
           </div>
           <div class="flex justify-center pb-3 text-grey-dark">
             <div class="text-center mr-3 border-r pr-3">
@@ -79,14 +79,22 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getFavoriteBatters"])
+    ...mapGetters(["getFavoriteBatters", "user"])
   },
   methods: {
     ...methods,
-    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
+    ...mapActions([
+      "getProfile",
+      "addBatterToFavorites",
+      "currentBatter",
+      "removeBatter"
+    ]),
     remove(index) {
       this.removeBatter(index);
     }
+  },
+  created() {
+    this.getProfile();
   }
 };
 </script>
