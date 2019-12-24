@@ -113,7 +113,7 @@ export default new Vuex.Store({
       commit("SET_LOGGED_IN", user !== null);
       if (user) {
         commit("SET_USER", {
-          displayName: user.displayName,
+          name: user.displayName,
           email: user.email
         });
       } else {

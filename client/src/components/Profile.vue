@@ -3,7 +3,9 @@
     <div class="flex md:flex-row-reverse flex-wrap layout">
       <!-- profile card -->
       <div class="w-full md:w-1/4 card">
-        <div class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card">
+        <div
+          class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card"
+        >
           <img src="../assets/fenway.jpg" class="w-full" />
           <div class="flex justify-center -mt-8">
             <img
@@ -12,8 +14,12 @@
             />
           </div>
           <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-black text-sm bold font-sans">{{ user.data.displayName }}</h3>
-            <p class="mt-2 font-sans font-light text-grey-dark">{{ user.data.email }}</p>
+            <h3 class="text-black text-sm bold font-sans">
+              {{ user.data.name }}
+            </h3>
+            <p class="mt-2 font-sans font-light text-grey-dark">
+              {{ user.data.email }}
+            </p>
           </div>
           <div class="flex justify-center pb-3 text-grey-dark">
             <div class="text-center mr-3 border-r pr-3">
@@ -43,17 +49,23 @@
               </p>
               <div class="ml-5 text-center sm:text-left sm:flex-grow">
                 <div class="mb-4">
-                  <p class="font-sans text-xl leading-tight mb-2">{{ fav.Name }}</p>
-                  <p
-                    class="font-sans text-sm leading-tight mb-2"
-                  >WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}</p>
-                  <p class="font-sans text-sm leading-tight text-grey-dark">{{ fav.Team }}</p>
+                  <p class="font-sans text-xl leading-tight mb-2">
+                    {{ fav.Name }}
+                  </p>
+                  <p class="font-sans text-sm leading-tight mb-2">
+                    WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}
+                  </p>
+                  <p class="font-sans text-sm leading-tight text-grey-dark">
+                    {{ fav.Team }}
+                  </p>
                 </div>
                 <div class="sm:flex sm:items-center flex-wrap">
                   <button
                     @click="remove(index)"
                     class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-                  >Untrack</button>
+                  >
+                    Untrack
+                  </button>
                 </div>
               </div>
             </div>
