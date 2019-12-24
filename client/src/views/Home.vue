@@ -18,6 +18,8 @@
 <script>
 import Login from "@/components/Login.vue";
 import Register from "@/components/Register.vue";
+import firebase from "firebase";
+
 export default {
   name: "home",
   components: {

@@ -51,7 +51,7 @@
 <script>
 import pitcherProjections from "../../public/pitchers_2020.json";
 import { mapActions, mapGetters } from "vuex";
-import { db } from "../db";
+// import { db } from "../db";
 import methods from "../methods";
 import players from "@/api/players";
 

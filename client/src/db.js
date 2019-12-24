@@ -1,15 +1,15 @@
-const firebase = require('firebase');
+import * as firebase from "firebase/app";
 require('firebase/firestore');
 
 var firebaseConfig = {
-    apiKey: 'AIzaSyDSCze4KVkWRDkU1Ync0tVj31CfPit2FzY',
-    authDomain: 'basebook-92100.firebaseapp.com',
-    databaseURL: 'https://basebook-92100.firebaseio.com',
-    projectId: 'basebook-92100',
-    storageBucket: 'basebook-92100.appspot.com',
-    messagingSenderId: '46273488588',
-    appId: '1:46273488588:web:d7ca0fba24117e4a1c4469',
-    measurementId: 'G-GQE6B4MS20'
+    apiKey: "AIzaSyB0y1__NDxBoW8WcI5iCtb8092HM3mpmKk",
+    authDomain: "basebook-0.firebaseapp.com",
+    databaseURL: "https://basebook-0.firebaseio.com",
+    projectId: "basebook-0",
+    storageBucket: "basebook-0.appspot.com",
+    messagingSenderId: "504453600708",
+    appId: "1:504453600708:web:25b97af64c846b42c58091",
+    measurementId: "G-YS9W2JS5DW"
 };
 
 // Initialize Firestore instance
@@ -19,8 +19,8 @@ firebase.initializeApp(firebaseConfig);
 // firebase utils
 const db = firebase.firestore()
 const auth = firebase.auth()
-const currentUser = auth.currentUser
 
+const currentUser = auth.currentUser
 // firebase collections
 const usersCollection = db.collection('users')
 // const batters = db.collection('batters')
@@ -31,6 +31,4 @@ export {
     auth,
     currentUser,
     usersCollection,
-    /* batters,
-    pitchers, */
 }

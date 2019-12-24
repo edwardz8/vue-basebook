@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import store from '../store'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
@@ -40,6 +40,7 @@ const routes = [{
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    props: true,
     meta: {
       requiresAuth: true
     }

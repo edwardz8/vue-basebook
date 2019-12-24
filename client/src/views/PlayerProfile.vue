@@ -8,8 +8,9 @@
           <span class="uppercase">{{ currentBatter.Name }}</span>
           <span class="font-normal text-gray-700 text-sm">{{ currentBatter.Team }}</span>
         </div>
-        <div class="w-32 h-32 flex items-center justify-center">
+        <div class="flex items-center justify-center logo">
           <!-- image here -->
+          <i :class="matchTeamLogo(currentBatter.Team)"></i>
         </div>
         <h3 class="text-black mb-6">Player Projections</h3>
         <p class="text-gray-700 mb-2">Batting Average -- On Base Percentage</p>
@@ -130,7 +131,6 @@
 <script>
 import batterProjections from "../../public/batters_2020.json";
 import { mapActions, mapGetters } from "vuex";
-import { db } from "../db";
 import methods from "../methods";
 import players from "@/api/players";
 
@@ -151,4 +151,7 @@ export default {
 </script>
 
 <style scoped>
+.logo {
+  font-size: 5rem;
+}
 </style>

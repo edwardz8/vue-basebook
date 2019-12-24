@@ -12,8 +12,8 @@
             />
           </div>
           <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-black text-sm bold font-sans">{{ user.name }}</h3>
-            <p class="mt-2 font-sans font-light text-grey-dark">{{ user.email }}</p>
+            <h3 class="text-black text-sm bold font-sans">{{ user.data.displayName }}</h3>
+            <p class="mt-2 font-sans font-light text-grey-dark">{{ user.data.email }}</p>
           </div>
           <div class="flex justify-center pb-3 text-grey-dark">
             <div class="text-center mr-3 border-r pr-3">
@@ -39,7 +39,7 @@
           >
             <div class="sm:flex sm:items-center px-6 py-4">
               <p class="logo">
-                <!-- <i :class="matchTeamLogo(fav.Team)"></i> -->
+                <i :class="matchTeamLogo(fav.Team)"></i>
               </p>
               <div class="ml-5 text-center sm:text-left sm:flex-grow">
                 <div class="mb-4">
@@ -53,7 +53,7 @@
                   <button
                     @click="remove(index)"
                     class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-                  >Unfollow</button>
+                  >Untrack</button>
                 </div>
               </div>
             </div>
@@ -67,9 +67,8 @@
 <script>
 import batterProjections from "../../public/batters_2020.json";
 import { mapGetters, mapActions } from "vuex";
-import { db } from "../db";
+import firebase from "firebase/app";
 import methods from "../methods";
-import players from "@/api/players";
 
 export default {
   name: "Profile",
@@ -79,7 +78,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getFavoriteBatters", "user"])
+    ...mapGetters({ user: "user" }),
+    ...mapGetters(["getFavoriteBatters"])
   },
   methods: {
     ...methods,
@@ -95,6 +95,10 @@ export default {
 </script>
 
 <style scoped>
+.logo {
+  font-size: 5rem;
+}
+
 @media only screen and (max-width: 400px) {
   .profile-card {
     margin-left: 1rem;

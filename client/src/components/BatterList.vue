@@ -20,35 +20,32 @@
         v-for="batter in filtered"
         :key="batter.playerid"
       >
-        <router-link to="/player">
-          <div
-            class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300"
-            @click="viewCurrentBatter(batter)"
-          >
-            <p class="logo">
-              <i :class="matchTeamLogo(batter.Team)"></i>
-            </p>
-            <div class="ml-5 text-center sm:text-left sm:flex-grow">
-              <div class="mb-4">
-                <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
-                <p class="font-sans text-sm leading-tight text-grey-dark mb-2">{{ batter.Team }}</p>
-                <p
-                  class="font-sans text-sm leading-tight"
-                >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
-              </div>
-              <div class="sm:flex sm:items-center flex-wrap">
+        <div class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300">
+          <p class="logo">
+            <i :class="matchTeamLogo(batter.Team)"></i>
+          </p>
+          <div class="ml-5 text-center sm:text-left sm:flex-grow">
+            <div class="mb-4">
+              <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark mb-2">{{ batter.Team }}</p>
+              <p
+                class="font-sans text-sm leading-tight"
+              >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
+            </div>
+            <div class="sm:flex sm:items-center flex-wrap">
+              <button
+                @click="addBatterToFavorites(batter)"
+                class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
+              >Track</button>
+              <router-link to="/player">
                 <button
-                  @click="addBatterToFavorites(batter)"
-                  class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-                >Track</button>
-                <button
-                  disabled
+                  @click="viewCurrentBatter(batter)"
                   class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-                >Comment</button>
-              </div>
+                >Stats</button>
+              </router-link>
             </div>
           </div>
-        </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -57,7 +54,6 @@
 <script>
 import batterProjections from "../../public/batters_2020.json";
 import { mapActions, mapGetters } from "vuex";
-import { db } from "../db";
 import methods from "../methods";
 import players from "@/api/players";
 
@@ -103,7 +99,6 @@ export default {
 
 <style scoped lang="scss">
 .container {
-  max-width: 1330px;
   margin: 0 auto;
 }
 .searchbox {

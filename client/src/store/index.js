@@ -16,7 +16,10 @@ export default new Vuex.Store({
   plugins: [axiosPlugin],
   state: {
     // login
-    user: {},
+    user: {
+      loggedIn: false,
+      data: null
+    },
     status: '',
     // batter & pitcher data
     batters: batterProjections,
@@ -32,10 +35,8 @@ export default new Vuex.Store({
     error: null
   },
   getters: {
-    isLoggedIn: state => !!state.token,
-    authStatus: state => state.status,
-    // authState: state => state.status,
     user: state => state.user,
+    authStatus: state => state.status,
     error: state => state.error,
     // batters
     getBatters: state => state.batters,
@@ -104,6 +105,20 @@ export default new Vuex.Store({
     // comments
     addComment: (context, comment) => {
       context.commit('ADD_COMMENT', comment, comment.id)
+    },
+    // get user
+    fetchUser({
+      commit
+    }, user) {
+      commit("SET_LOGGED_IN", user !== null);
+      if (user) {
+        commit("SET_USER", {
+          displayName: user.displayName,
+          email: user.email
+        });
+      } else {
+        commit("SET_USER", null);
+      }
     }
   },
 });
