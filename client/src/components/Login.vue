@@ -2,7 +2,7 @@
   <div class="account-form mt-6">
     <!-- Login Form -->
     <form class="w-full max-w-md">
-      <div class="md:flex md:items-center mb-6">
+      <!-- <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -17,8 +17,8 @@
             type="email"
           />
         </div>
-      </div>
-      <div class="md:flex md:items-center mb-6">
+      </div>-->
+      <!-- <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -35,19 +35,20 @@
             placeholder="********"
           />
         </div>
-      </div>
+      </div>-->
       <div class="flex md:items-center lg:items-center">
         <div class="md:w-1/3"></div>
         <div class="md:w-2/3">
-          <button
-            type="submit"
+          <a
+            :href="getLoginUrl"
+            role="button"
             class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
-          >Login</button>
+          >Login</a>
         </div>
       </div>
-      <div class="options">
+      <!-- <div class="options">
         <router-link to="/register" class="register text-blue-500">Create Account</router-link>
-      </div>
+      </div>-->
     </form>
   </div>
 </template>
@@ -63,6 +64,13 @@ export default {
       email: "",
       password: ""
     };
+  },
+  computed: {
+    getLoginUrl() {
+      if (window.location.hostname === "localhost") {
+        return "http://localhost:3000/auth/google";
+      }
+    }
   },
   methods: {
     // ...mapActions(["login"]),

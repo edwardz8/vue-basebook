@@ -16,11 +16,12 @@ export default {
   components: {
     Navbar
   },
+  mounted() {},
   computed: {
     ...mapGetters(["error", "isLoggedIn"])
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions(["login"]),
     logoutUser() {
       this.logout();
     }

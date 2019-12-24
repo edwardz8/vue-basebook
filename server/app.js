@@ -7,7 +7,9 @@ require('dotenv').config();
 
 const {
     notFound,
-    errorHandler
+    errorHandler,
+    checkAuthHeaderSetUser,
+    checkAuthHeaderSetUserUnauthorized
 } = require('./middlewares');
 
 const auth = require('./auth');
@@ -20,6 +22,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(passport.initialize())
+app.use(checkAuthHeaderSetUser)
 app.use(cookieParser());
 
 // routes

@@ -28,6 +28,8 @@ Role
 id SERIAL PRIMARY KEY
 name text
 
+
+
 Comment
 id SERIAL PRIMARY KEY
 card_id unsigned_int FOREIGN KEY

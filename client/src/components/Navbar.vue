@@ -34,12 +34,12 @@
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
         >Register</router-link>
       </li>
-      <li class="flex-1 mr-2" v-if="isLoggedIn">
+      <!--  <li class="flex-1 mr-2" v-if="isLoggedIn">
         <a
           @click.prevent="logout"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
         >Logout</a>
-      </li>
+      </li>-->
     </ul>
   </div>
 </template>
@@ -55,13 +55,10 @@ export default {
   },
   methods: {
     // ...mapActions(["logout"]),
-    logout: function() {
+    /*   logout: function() {
       this.$store.dispatch("logout").then(() => {
         this.$router.push("/login");
       });
-    }
-    /*  logoutUser() {
-      this.logout();
     } */
   }
 };

@@ -8,6 +8,8 @@ import Profile from '../components/Profile.vue'
 import Home from '../views/Home.vue'
 import Players from '../views/Players.vue'
 import PlayerProfile from '../views/PlayerProfile.vue'
+import LoginToken from '../components/LoginToken.vue'
+import Admin from '../components/Admin'
 
 Vue.use(VueRouter);
 
@@ -26,6 +28,23 @@ const routes = [{
     component: Login,
     meta: {
       requiresGuest: true
+    }
+  },
+  {
+    path: '/login/token/:token',
+    name: 'login-token',
+    component: LoginToken
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+    beforeEnter(to, from, next) {
+      if (store.getters.isLoggedIn) {
+        next();
+      } else {
+        next('/')
+      }
     }
   },
   {
