@@ -17,8 +17,7 @@ export default new Vuex.Store({
   state: {
     // login
     user: {
-      loggedIn: false,
-      data: null
+      loggedIn: false
     },
     status: '',
     // batter & pitcher data
@@ -54,8 +53,11 @@ export default new Vuex.Store({
     SET_LOGGED_IN(state, value) {
       state.user.loggedIn = value;
     },
-    SET_USER(state, data) {
-      state.user.data = data;
+    setUser(state, val) {
+      state.user = val;
+    },
+    SET_BATTERS(state, val) {
+      state.batters = val
     },
     ADD_BATTER_TO_FAVORITES(state, batter) {
       state.favoriteBatters.push(batter);
@@ -112,12 +114,13 @@ export default new Vuex.Store({
     }, user) {
       commit("SET_LOGGED_IN", user !== null);
       if (user) {
-        commit("SET_USER", {
-          name: user.displayName,
-          email: user.email
+        commit("setUser", {
+          displayName: user.displayName,
+          email: user.email,
+          uid: user.uid
         });
       } else {
-        commit("SET_USER", null);
+        commit("setUser", null);
       }
     }
   },

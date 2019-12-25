@@ -23,12 +23,15 @@ const auth = firebase.auth()
 const currentUser = auth.currentUser
 // firebase collections
 const usersCollection = db.collection('users')
-// const batters = db.collection('batters')
+const battersCollection = db.collection('batters')
 // const pitchers = db.collection('pitchers')
+const commentsCollection = db.collection('comments')
 
 export {
     db,
     auth,
     currentUser,
     usersCollection,
+    battersCollection,
+    commentsCollection
 }

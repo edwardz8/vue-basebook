@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import firebase from "firebase";
 import Navbar from "@/components/Navbar";
 
@@ -17,13 +17,24 @@ export default {
     Navbar
   },
   computed: {
-    ...mapGetters(["error", "isLoggedIn"])
+    ...mapGetters(["error", "isLoggedIn"]),
+    ...mapState(["user"])
   },
   methods: {
     ...mapActions(["logout"]),
     logoutUser() {
       this.logout();
     }
+  },
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.commit("setUser", user || false);
+      if (user && this.$route.path === "/login") {
+        this.$router.replace({ name: "players" });
+      } else if (!user && this.$route.path !== "/") {
+        this.$router.replace("/");
+      }
+    });
   },
   created: function() {
     this.$http.interceptors.response.use(undefined, function(err) {

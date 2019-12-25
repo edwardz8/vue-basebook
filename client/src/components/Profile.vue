@@ -15,10 +15,10 @@
           </div>
           <div class="text-center px-3 pb-6 pt-2">
             <h3 class="text-black text-sm bold font-sans">
-              {{ user.data.name }}
+              {{ user.displayName }}
             </h3>
             <p class="mt-2 font-sans font-light text-grey-dark">
-              {{ user.data.email }}
+              {{ user.email }}
             </p>
           </div>
           <div class="flex justify-center pb-3 text-grey-dark">
@@ -78,7 +78,7 @@
 
 <script>
 import batterProjections from "../../public/batters_2020.json";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapState } from "vuex";
 import firebase from "firebase/app";
 import methods from "../methods";
 
@@ -90,8 +90,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ user: "user" }),
-    ...mapGetters(["getFavoriteBatters"])
+    ...mapGetters(["user"]),
+    ...mapGetters(["getFavoriteBatters"]),
+    user() {
+      return this.$store.state.user;
+    }
   },
   methods: {
     ...methods,
@@ -99,9 +102,6 @@ export default {
     remove(index) {
       this.removeBatter(index);
     }
-  },
-  created() {
-    // this.getProfile();
   }
 };
 </script>
