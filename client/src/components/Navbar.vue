@@ -14,31 +14,29 @@
         <router-link
           to="/players"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Players</router-link>
+          >Players</router-link
+        >
       </li>
       <li class="flex-1 mr-2">
         <router-link
           to="/profile"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Profile</router-link>
+          >Profile</router-link
+        >
       </li>
-      <li class="flex-1 mr-2" v-if="!user.loggedIn">
+      <li class="flex-1 mr-2">
         <router-link
           to="/"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Login</router-link>
+          >Login</router-link
+        >
       </li>
-      <li class="flex-1 mr-2" v-if="!user.loggedIn">
-        <router-link
-          to="/register"
-          class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Register</router-link>
-      </li>
-      <li class="flex-1 mr-2" v-if="user.loggedIn">
+      <li class="flex-1 mr-2">
         <a
           @click.prevent="signOut"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Logout</a>
+          >Logout</a
+        >
       </li>
     </ul>
   </div>
@@ -53,7 +51,7 @@ export default {
     ...mapGetters({ user: "user" })
   },
   methods: {
-    // ...mapActions(["logout"]),
+    ...mapActions(["logout"]),
     signOut() {
       firebase
         .auth()

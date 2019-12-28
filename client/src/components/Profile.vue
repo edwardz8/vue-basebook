@@ -3,9 +3,7 @@
     <div class="flex md:flex-row-reverse flex-wrap layout">
       <!-- profile card -->
       <div class="w-full md:w-1/4 card">
-        <div
-          class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card"
-        >
+        <div class="rounded rounded-t-lg overflow-hidden shadow max-w-xs my-3 profile-card">
           <img src="../assets/fenway.jpg" class="w-full" />
           <div class="flex justify-center -mt-8">
             <img
@@ -14,12 +12,8 @@
             />
           </div>
           <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-black text-sm bold font-sans">
-              {{ user.displayName }}
-            </h3>
-            <p class="mt-2 font-sans font-light text-grey-dark">
-              {{ user.email }}
-            </p>
+            <h3 class="text-black text-sm bold font-sans">{{ user.displayName }}</h3>
+            <p class="mt-2 font-sans font-light text-grey-dark">{{ user.email }}</p>
           </div>
           <div class="flex justify-center pb-3 text-grey-dark">
             <div class="text-center mr-3 border-r pr-3">
@@ -40,7 +34,7 @@
         <div class="favorites-grid">
           <div
             class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-            v-for="(fav, index) in getFavoriteBatters"
+            v-for="(fav, index) in getFavorites"
             :key="index"
           >
             <div class="sm:flex sm:items-center px-6 py-4">
@@ -49,23 +43,15 @@
               </p>
               <div class="ml-5 text-center sm:text-left sm:flex-grow">
                 <div class="mb-4">
-                  <p class="font-sans text-xl leading-tight mb-2">
-                    {{ fav.Name }}
-                  </p>
-                  <p class="font-sans text-sm leading-tight mb-2">
-                    WAR: {{ fav.WAR }} - AVG: {{ fav.AVG }}
-                  </p>
-                  <p class="font-sans text-sm leading-tight text-grey-dark">
-                    {{ fav.Team }}
-                  </p>
+                  <p class="font-sans text-xl leading-tight mb-2">{{ fav.Name }}</p>
+                  <p class="font-sans text-sm leading-tight mb-2">WAR: {{ fav.WAR }}</p>
+                  <p class="font-sans text-sm leading-tight text-grey-dark">{{ fav.Team }}</p>
                 </div>
                 <div class="sm:flex sm:items-center flex-wrap">
                   <button
                     @click="remove(index)"
                     class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-                  >
-                    Untrack
-                  </button>
+                  >Untrack</button>
                 </div>
               </div>
             </div>
@@ -78,6 +64,7 @@
 
 <script>
 import batterProjections from "../../public/batters_2020.json";
+import pitcherProjections from "../../public/pitchers_2020.json";
 import { mapGetters, mapActions, mapState } from "vuex";
 import firebase from "firebase/app";
 import methods from "../methods";
@@ -86,20 +73,26 @@ export default {
   name: "Profile",
   data() {
     return {
-      team: batterProjections.Team
+      // team: batterProjections.Team
     };
   },
   computed: {
     ...mapGetters(["user"]),
-    ...mapGetters(["getFavoriteBatters"]),
+    ...mapGetters(["getFavorites"]),
     user() {
       return this.$store.state.user;
     }
   },
   methods: {
     ...methods,
-    ...mapActions(["addBatterToFavorites", "currentBatter", "removeBatter"]),
-    remove(index) {
+    ...mapActions([
+      "addBatterToFavorites",
+      "addPitcherToFavorites",
+      "currentBatter",
+      "currentPitcher",
+      "remove"
+    ]),
+    removeBatter(index) {
       this.removeBatter(index);
     }
   }

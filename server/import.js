@@ -6,11 +6,11 @@ const serviceAccount = require('./serviceAccount.json');
 // JSON To Firestore
 const jsonToFirestore = async () => {
     try {
-        console.log('Initialzing Firebase');
+        console.log('Initializing Firebase');
         await firestoreService.initializeApp(serviceAccount, firebaseConfig.databaseURL);
         console.log('Firebase Initialized');
 
-        await firestoreService.restore('./batters_20.json');
+        await firestoreService.restore('./pitchers_20.json');
         console.log('Upload Success');
     } catch (error) {
         console.log(error);

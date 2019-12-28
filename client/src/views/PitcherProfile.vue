@@ -1,53 +1,50 @@
 <template>
   <div class="player-profile">
-    <div
-      class="w-full cursor-pointer border b-gray-400 rounded flex flex-col p-6 bg-white m-8"
-    >
+    <div class="w-full cursor-pointer border b-gray-400 rounded flex flex-col p-6 bg-white m-8">
       <div class="card-layout">
-
         <div class="column-left justify-center items-center text-center">
           <div class="text-md font-bold flex flex-col text-gray-900">
-            <span class="uppercase">{{ currentBatter.Name }}</span>
-            <span class="font-normal text-gray-700 text-sm">{{
-              currentBatter.Team
-            }}</span>
+            <span class="uppercase">{{ currentPitcher.Name }}</span>
+            <span class="font-normal text-gray-700 text-sm">
+              {{
+              currentPitcher.Team
+              }}
+            </span>
           </div>
           <div class="flex items-center justify-center logo">
             <!-- image here -->
-            <i :class="matchTeamLogo(currentBatter.Team)"></i>
+            <i :class="matchTeamLogo(currentPitcher.Team)"></i>
           </div>
-          <h3 class="text-black mb-6">Player Projections</h3>
-          <p class="text-gray-700 mb-2">
-            Batting Average -- On Base Percentage
-          </p>
+          <h3 class="text-black mb-6">Pitcher Projections</h3>
+          <p class="text-gray-700 mb-2">Innings Pitched -- Hits</p>
           <div class="text-3xl font-bold text-gray-900 mb-6">
-            {{ currentBatter.AVG }}
+            {{ currentPitcher.IP }}
             <span class="font-normal text-gray-700 mx-1">/</span>
-            {{ currentBatter.OBP }}
+            {{ currentPitcher.H }}
           </div>
-          <p class="text-gray-700 mb-2">Hits -- At Bats</p>
+          <p class="text-gray-700 mb-2">Earned Runs -- Home Runs Allowed</p>
           <div class="text-3xl font-bold text-gray-900 mb-6">
-            {{ currentBatter.H }}
+            {{ currentPitcher.ER }}
             <span class="font-normal text-gray-700 mx-1">/</span>
-            {{ currentBatter.AB }}
+            {{ currentPitcher.HR }}
           </div>
-          <p class="text-gray-700 mb-2">Home Runs -- Slugging Percentage</p>
+          <p class="text-gray-700 mb-2">Strikeouts -- Walks</p>
           <div class="text-3xl font-bold text-gray-900 mb-6">
-            {{ currentBatter.HR }}
+            {{ currentPitcher.SO }}
             <span class="font-normal text-gray-700 mx-1">/</span>
-            {{ currentBatter.SLG }}
+            {{ currentPitcher.BB }}
           </div>
-          <p class="text-gray-700 mb-2">Runs -- Stolen Bases</p>
+          <p class="text-gray-700 mb-2">WHIP -- FIP</p>
           <div class="text-3xl font-bold text-gray-900 mb-6">
-            {{ currentBatter.R }}
+            {{ currentPitcher.WHIP }}
             <span class="font-normal text-gray-700 mx-1">/</span>
-            {{ currentBatter.SB }}
+            {{ currentPitcher.FIP }}
           </div>
-          <p class="text-gray-700 mb-2">Offensive War -- Defensive War</p>
+          <p class="text-gray-700 mb-2">Wins -- Losses</p>
           <div class="text-3xl font-bold text-gray-900 mb-6">
-            {{ currentBatter.Off }}
+            {{ currentPitcher.W }}
             <span class="font-normal text-gray-700 mx-1">/</span>
-            {{ currentBatter.Def }}
+            {{ currentPitcher.L }}
           </div>
           <div class="flex justify-between w-full">
             <div class="flex items-center text-gray-700 px-2">
@@ -58,13 +55,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g
                     id="Desktop-HD"
                     transform="translate(-120.000000, -479.000000)"
@@ -72,14 +63,8 @@
                     fill-rule="nonzero"
                   >
                     <g id="Group" transform="translate(95.000000, 222.000000)">
-                      <g
-                        id="Group-3"
-                        transform="translate(25.000000, 256.774194)"
-                      >
-                        <g
-                          id="028-drop"
-                          transform="translate(0.000000, 0.225806)"
-                        >
+                      <g id="Group-3" transform="translate(25.000000, 256.774194)">
+                        <g id="028-drop" transform="translate(0.000000, 0.225806)">
                           <path
                             d="M11,11.9334341 C11,15.0552582 8.53750272,17.5862069 5.5,17.5862069 C2.46249728,17.5862069 0,15.0552582 0,11.9334341 C0,7.58026159 5.5,0 5.5,0 C5.5,0 11,7.58026159 11,11.9334341 L11,11.9334341 Z"
                             id="Path"
@@ -90,7 +75,7 @@
                   </g>
                 </g>
               </svg>
-              Games Played: {{ currentBatter.G }}
+              Games Played: {{ currentPitcher.GS }}
             </div>
             <div class="flex items-center text-gray-700 px-2">
               <svg
@@ -100,13 +85,7 @@
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
-                <g
-                  id="Page-1"
-                  stroke="none"
-                  stroke-width="1"
-                  fill="none"
-                  fill-rule="evenodd"
-                >
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                   <g
                     id="Desktop-HD"
                     transform="translate(-201.000000, -480.000000)"
@@ -114,10 +93,7 @@
                     fill-rule="nonzero"
                   >
                     <g id="Group" transform="translate(95.000000, 222.000000)">
-                      <g
-                        id="Group-3"
-                        transform="translate(25.000000, 256.774194)"
-                      >
+                      <g id="Group-3" transform="translate(25.000000, 256.774194)">
                         <g
                           id="wind"
                           transform="translate(87.500000, 11.225806) rotate(-90.000000) translate(-87.500000, -11.225806) translate(77.000000, 5.225806)"
@@ -146,51 +122,29 @@
                   </g>
                 </g>
               </svg>
-              WAR: {{ currentBatter.WAR }}
+              WAR: {{ currentPitcher.WAR }}
             </div>
           </div>
         </div>
       </div>
 
-      <div class="column-right">
-        <div class="w-2/5 px-3 form">
-          <form @submit.prevent>
-            <label
-              class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            >
-              Comment
-            </label>
-            <textarea
-              v-model.trim="comment.content"
-              class=" no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 resize-none"
-              id="message"
-            ></textarea>
-            <button class="shadow hover:bg-green-400 bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
-              @click="addComment"
-              :disabled="comment.content == ''"
-            >
-              Add Comment
-            </button>
-          </form>
-        </div>
-      </div>
-<!-- end of right column -->
-
+      <div class="column-right"></div>
+      <!-- end of right column -->
     </div>
   </div>
 </template>
 
 <script>
-import batterProjections from "../../public/batters_2020.json";
+import pitcherProjections from "../../public/pitchers_2020.json";
 import { mapActions, mapGetters } from "vuex";
 import methods from "../methods";
 const fb = require("../db");
 
 export default {
-  name: "PlayerProfile",
+  name: "BatterProfile",
   data() {
     return {
-      team: batterProjections.Team,
+      team: pitcherProjections.Team,
       comment: {
         playerid: "",
         userId: "",
@@ -200,31 +154,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ currentBatter: "getCurrentBatter" })
+    ...mapGetters({ currentPitcher: "getCurrentPitcher" })
   },
   methods: {
-    ...methods,
-    addComment() {
-      let playerid = this.comment.playerid;
-      let cardComments = this.comment.cardComments;
-
-      fb.commentsCollection
-        .add({
-          createdOn: new Date(),
-          content: this.comment.content,
-          playerid: playerid,
-          userId: this.user.uid,
-          userName: this.user.name
-        })
-        .then(doc => {
-          fb.battersCollection.doc(playerid).update({
-            comments: cardComments + 1
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
+    ...methods
   }
 };
 </script>

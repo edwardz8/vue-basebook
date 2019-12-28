@@ -5,8 +5,7 @@
       <label
         class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
         for="grid-password"
-        >Search By Team or Player</label
-      >
+      >Search By Team or Player</label>
       <input
         v-model="search"
         class="appearance-none block w-full bg-gray-400 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-white"
@@ -18,7 +17,7 @@
     <div class="grid-row">
       <div
         class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
-        v-for="batter in filtered"
+        v-for="batter in batters"
         :key="batter.playerid"
       >
         <div class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300">
@@ -27,30 +26,22 @@
           </p>
           <div class="ml-5 text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
-              <p class="font-sans text-xl leading-tight mb-2">
-                {{ batter.Name }}
-              </p>
-              <p class="font-sans text-sm leading-tight text-grey-dark mb-2">
-                {{ batter.Team }}
-              </p>
-              <p class="font-sans text-sm leading-tight">
-                WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}
-              </p>
+              <p class="font-sans text-xl leading-tight mb-2">{{ batter.Name }}</p>
+              <p class="font-sans text-sm leading-tight text-grey-dark mb-2">{{ batter.Team }}</p>
+              <p
+                class="font-sans text-sm leading-tight"
+              >WAR: {{ batter.WAR }} - AVG: {{ batter.AVG }}</p>
             </div>
             <div class="sm:flex sm:items-center flex-wrap">
               <button
                 @click="addBatterToFavorites(batter)"
                 class="text-xs font-semibold rounded-full px-4 py-1 mx-3 leading-normal bg-white border border-blue text-blue hover:text-black"
-              >
-                Track
-              </button>
-              <router-link to="/player">
+              >Track</button>
+              <router-link to="/batter">
                 <button
                   @click="viewCurrentBatter(batter)"
                   class="text-xs font-semibold rounded-full px-4 py-1 leading-normal bg-white border border-purple text-purple hover:text-black"
-                >
-                  Stats
-                </button>
+                >Stats</button>
               </router-link>
             </div>
           </div>
@@ -62,22 +53,22 @@
 
 <script>
 import batterProjections from "../../public/batters_2020.json";
-import { mapActions, mapGetters, mapState } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import methods from "../methods";
-import players from "@/api/players";
+import { db } from "../db";
 
 export default {
   name: "BatterList",
   data() {
     return {
       search: "",
-      team: batterProjections.Team
+      team: batterProjections.Team,
+      batters: []
     };
   },
   computed: {
-    // ...mapState(["batters"]),
-    ...mapGetters(["getBatters", "getCurrentBatter", "getFavoriteBatters"]),
-    filtered() {
+    ...mapGetters(["getBatters", "getCurrentBatter", "getFavorites", "user"])
+    /*   filtered() {
       return this.getBatters.filter(p => {
         return this.search
           .toLowerCase()
@@ -88,7 +79,7 @@ export default {
               p.Team.toLowerCase().includes(v)
           );
       });
-    }
+    } */
   },
   methods: {
     ...methods,
@@ -100,9 +91,14 @@ export default {
       this.removeBatter(index);
     }
   },
-  created() {
-    this.$store.getters.getBatters;
+  firestore() {
+    return {
+      batters: db.collection("batters")
+    };
   }
+  /*  created() {
+    this.$store.getters.getBatters;
+  } */
 };
 </script>
 

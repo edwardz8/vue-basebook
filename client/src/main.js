@@ -9,16 +9,15 @@ import VueAxios from './plugins/axios'
 import './assets/css/tailwind.css'
 import './registerServiceWorker'
 import * as firebase from 'firebase/app';
-const db = require('./db');
 import App from './App.vue'
 import router from './router'
 import store from './store'
-/* import {
+import {
   firestorePlugin
-} from 'vuefire' */
+} from 'vuefire'
 
 Vue.use(VueCompositionApi);
-// Vue.use(firestorePlugin)
+Vue.use(firestorePlugin)
 Vue.use(VueAxios)
 Vue.use(Vuex)
 
