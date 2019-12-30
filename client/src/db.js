@@ -15,21 +15,18 @@ const app = initializeApp({
     measurementId: "G-YS9W2JS5DW"
 });
 
-// Initialize firestore instance
-// firebase.initializeApp(firebaseConfig);
-
 // firebase utils
 const db = app.firestore()
 const auth = firebase.auth()
 // firebase.analytics();
-
 const currentUser = auth.currentUser
+
 // firebase collections
 const usersCollection = db.collection('users')
 const battersCollection = db.collection('batters')
 const pitchersCollection = db.collection('pitchers')
 const commentsCollection = db.collection('comments')
-const likesCollection = db.collection('likes')
+// const likesCollection = db.collection('likes')
 
 export {
     db,
@@ -39,5 +36,5 @@ export {
     battersCollection,
     pitchersCollection,
     commentsCollection,
-    likesCollection
+    // likesCollection
 }

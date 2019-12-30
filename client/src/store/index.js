@@ -8,7 +8,7 @@ const axiosPlugin = store => {
   store.$axios = axios
 }
 
-const fb = require('../db')
+const db = require('../db')
 
 Vue.use(Vuex);
 
@@ -18,6 +18,7 @@ export default new Vuex.Store({
     user: {
       loggedIn: Boolean
     },
+    currentUser: null,
     status: '',
     // batter & pitcher data
     batters: [],
@@ -26,7 +27,7 @@ export default new Vuex.Store({
     currentBatter: {},
     currentPitcher: {},
     // comments
-    comments: [],
+    comments: null,
     // search
     search: '',
     error: null
@@ -74,8 +75,19 @@ export default new Vuex.Store({
     CURRENT_BATTER(state, batter) {
       state.currentBatter = batter;
     },
-    ADD_COMMENT(state, comment) {
-      state.comments = comment;
+    SET_COMMENTS: state => {
+      let comments = []
+
+      db.commentsCollection.orderBy('created_at').onSnapshot((snapshot) => {
+        comments = []
+        snapshot.forEach((doc) => {
+          comments.push({
+            id: doc.id,
+            message: doc.data().message
+          })
+        })
+        state.comments = comments
+      })
     },
   },
   actions: {
@@ -96,8 +108,8 @@ export default new Vuex.Store({
       context.commit('REMOVE_FROM_FAVORITES', index);
     },
     // comments
-    addComment: (context, comment) => {
-      context.commit('ADD_COMMENT', comment, comment.id)
+    setComments: context => {
+      context.commit('SET_COMMENTS')
     },
     // get user
     fetchUser({
@@ -108,7 +120,8 @@ export default new Vuex.Store({
         commit("setUser", {
           displayName: user.displayName,
           email: user.email,
-          uid: user.uid
+          uid: user.uid,
+          photoUrl: user.photoUrl
         });
       } else {
         commit("setUser", null);
