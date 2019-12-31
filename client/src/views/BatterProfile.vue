@@ -7,9 +7,7 @@
         <div class="text-md font-bold flex flex-col text-gray-900">
           <span class="uppercase">{{ currentBatter.Name }}</span>
           <span class="font-normal text-gray-700 text-sm">
-            {{
-            currentBatter.Team
-            }}
+            {{ currentBatter.Team }}
           </span>
         </div>
         <div class="flex items-center justify-center logo">
@@ -49,14 +47,20 @@
         </div>
         <div class="flex justify-between w-full">
           <div class="flex items-center text-gray-700 px-2">
-            <svg
+            <!-- <svg
               class="mr-2 h-4"
               viewBox="0 0 11 18"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
                 <g
                   id="Desktop-HD"
                   transform="translate(-120.000000, -479.000000)"
@@ -64,8 +68,14 @@
                   fill-rule="nonzero"
                 >
                   <g id="Group" transform="translate(95.000000, 222.000000)">
-                    <g id="Group-3" transform="translate(25.000000, 256.774194)">
-                      <g id="028-drop" transform="translate(0.000000, 0.225806)">
+                    <g
+                      id="Group-3"
+                      transform="translate(25.000000, 256.774194)"
+                    >
+                      <g
+                        id="028-drop"
+                        transform="translate(0.000000, 0.225806)"
+                      >
                         <path
                           d="M11,11.9334341 C11,15.0552582 8.53750272,17.5862069 5.5,17.5862069 C2.46249728,17.5862069 0,15.0552582 0,11.9334341 C0,7.58026159 5.5,0 5.5,0 C5.5,0 11,7.58026159 11,11.9334341 L11,11.9334341 Z"
                           id="Path"
@@ -75,7 +85,7 @@
                   </g>
                 </g>
               </g>
-            </svg>
+            </svg> -->
             Games Played: {{ currentBatter.G }}
           </div>
           <div class="flex items-center text-gray-700 px-2">
@@ -86,7 +96,13 @@
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
             >
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="1"
+                fill="none"
+                fill-rule="evenodd"
+              >
                 <g
                   id="Desktop-HD"
                   transform="translate(-201.000000, -480.000000)"
@@ -94,7 +110,10 @@
                   fill-rule="nonzero"
                 >
                   <g id="Group" transform="translate(95.000000, 222.000000)">
-                    <g id="Group-3" transform="translate(25.000000, 256.774194)">
+                    <g
+                      id="Group-3"
+                      transform="translate(25.000000, 256.774194)"
+                    >
                       <g
                         id="wind"
                         transform="translate(87.500000, 11.225806) rotate(-90.000000) translate(-87.500000, -11.225806) translate(77.000000, 5.225806)"
@@ -133,7 +152,8 @@
           <form @submit.prevent>
             <label
               class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-            >Comment</label>
+              >Comment</label
+            >
             <textarea
               v-model="myComment"
               class="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 resize-none"
@@ -142,30 +162,47 @@
             <button
               class="shadow hover:bg-green-400 bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
               @click="addComment"
-            >Add Comment</button>
+            >
+              Add Comment
+            </button>
           </form>
 
           <div
-            v-if="this.$store.getters.getComments && this.$store.getters.getComments.length > 0"
-            class="bg-teal-100 border border-teal-400 text-teal-900 px-6 py-5 rounded relative"
-            role="alert"
+            v-if="
+              this.$store.getters.getComments &&
+                this.$store.getters.getComments.length > 0
+            "
           >
-            <div v-for="comment in this.$store.getters.getComments" :key="comment.id">
-              <!--  <p class="font-bold">{{user.displayName}}</p> -->
-              <p class="text-sm float-left top-0">{{comment.message}}</p>
-              <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg
-                  class="fill-current h-6 w-6 text-teal-500"
-                  role="button"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
+            <div
+              v-for="comment in this.$store.getters.getComments"
+              :key="comment.id"
+              class="bg-teal-100 border border-teal-400 text-teal-900 px-6 py-5 pb-12 rounded relative mt-8"
+              role="alert"
+            >
+              <div>
+                <p class="font-bold">{{ user.displayName }}</p>
+                <p
+                  class="text-sm float-left top-0 message-text block sm:inline pr-6"
                 >
-                  <title>Close</title>
-                  <path
-                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-                  />
-                </svg>
-              </span>
+                  {{ comment.message }}
+                </p>
+                <span
+                  @click="deleteComment(comment.id)"
+                  class="absolute top-0 bottom-0 right-0 px-4 py-3"
+                >
+                  <svg
+                    class="fill-current h-6 w-6 text-teal-500"
+                    role="button"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <title>Close</title>
+                    <path
+                      d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                    />
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -182,7 +219,6 @@ import methods from "../methods";
 const db = require("../db");
 import firebase from "firebase/app";
 import "firebase/auth";
-
 export default {
   name: "BatterProfile",
   beforeCreate: function() {
@@ -203,7 +239,6 @@ export default {
     ...methods,
     addComment() {
       this.errors = "";
-
       if (this.myComment !== "") {
         db.commentsCollection
           .add({
@@ -241,9 +276,7 @@ export default {
 .logo {
   font-size: 5rem;
 }
-/* .form {
-  position: absolute;
-  right: 16rem;
-  bottom: 0;
-} */
+.message-text {
+  margin-top: -0.5rem;
+}
 </style>

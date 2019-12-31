@@ -83,7 +83,9 @@ export default new Vuex.Store({
         snapshot.forEach((doc) => {
           comments.push({
             id: doc.id,
-            message: doc.data().message
+            message: doc.data().message,
+            user: doc.uid,
+            displayName: doc.displayName
           })
         })
         state.comments = comments
