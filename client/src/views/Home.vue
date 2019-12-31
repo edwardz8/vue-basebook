@@ -1,6 +1,6 @@
 <template>
   <div class="landing">
-    <div class="flex mt-24 ml-24">
+    <div class="flex flex-wrap justify-around mt-20 ml-6">
       <div class="text-left">
         <div
           class="uppercase tracking-wide text-md text-green-600 font-semibold"
