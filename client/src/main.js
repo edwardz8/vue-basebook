@@ -1,5 +1,4 @@
 import VueCompositionApi from '@vue/composition-api'
-import * as firebase from 'firebase'
 import Vue from 'vue'
 import {
   axios
@@ -9,16 +8,16 @@ import Vuex from 'vuex'
 import VueAxios from './plugins/axios'
 import './assets/css/tailwind.css'
 import './registerServiceWorker'
-
+import * as firebase from 'firebase/app';
 import App from './App.vue'
 import router from './router'
 import store from './store'
-/* import {
+import {
   firestorePlugin
-} from 'vuefire' */
+} from 'vuefire'
 
 Vue.use(VueCompositionApi);
-// Vue.use(firestorePlugin)
+Vue.use(firestorePlugin)
 Vue.use(VueAxios)
 Vue.use(Vuex)
 
@@ -27,6 +26,10 @@ Vue.config.productionTip = false;
 
 // Setting up default vue http modules for api calls
 Vue.prototype.$http = axios;
+
+firebase.auth().onAuthStateChanged(user => {
+  store.dispatch("fetchUser", user);
+});
 
 new Vue({
   router,

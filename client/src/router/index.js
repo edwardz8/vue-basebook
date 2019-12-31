@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import store from '../store'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
 import Profile from '../components/Profile.vue'
 import Home from '../views/Home.vue'
 import Players from '../views/Players.vue'
-import PlayerProfile from '../views/PlayerProfile.vue'
+import BatterProfile from '../views/BatterProfile.vue'
+import PitcherProfile from '../views/PitcherProfile.vue'
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,7 @@ const routes = [{
     path: '/profile',
     name: 'Profile',
     component: Profile,
+    props: true,
     meta: {
       requiresAuth: true
     }
@@ -50,9 +52,15 @@ const routes = [{
     component: Players,
   },
   {
-    path: '/player',
-    name: 'PlayerProfile',
-    component: PlayerProfile,
+    path: '/pitcher',
+    name: 'PitcherProfile',
+    component: PitcherProfile,
+    props: true
+  },
+  {
+    path: '/batter',
+    name: 'BatterProfile',
+    component: BatterProfile,
     props: true
   }
 ];

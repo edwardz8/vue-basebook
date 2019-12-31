@@ -1,17 +1,18 @@
 <template>
   <div class="register-form mt-6">
     <div v-if="error">{{ error }}</div>
-    <form action="#" class="w-full max-w-sm">
+    <form action="#" @submit.prevent="submit" class="w-full max-w-sm">
       <div class="md:flex md:items-center mb-6">
         <div class="md:w-1/3">
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="name"
-          >Username</label>
+            >Username</label
+          >
         </div>
         <div class="md:w-2/3">
           <input
-            v-model="name"
+            v-model="registerForm.name"
             class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="name"
             type="text"
@@ -23,11 +24,12 @@
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="email"
-          >Email</label>
+            >Email</label
+          >
         </div>
         <div class="md:w-2/3">
           <input
-            v-model="email"
+            v-model="registerForm.email"
             class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="email"
             type="email"
@@ -39,11 +41,12 @@
           <label
             class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
             for="password"
-          >Password</label>
+            >Password</label
+          >
         </div>
         <div class="md:w-2/3">
           <input
-            v-model="password"
+            v-model="registerForm.password"
             class="bg-gray-400 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-300"
             id="password"
             type="password"
@@ -56,40 +59,62 @@
         <div class="md:w-1/3"></div>
         <div class="md:w-2/3">
           <button
+            type="submit"
             class="shadow bg-green-500 hover:bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
-          >Sign Up</button>
+          >
+            Sign Up
+          </button>
         </div>
       </div>
       <div class="options">
-        <router-link to="/" class="register text-blue-500">Back to Login</router-link>
+        <router-link to="/" class="register text-blue-500"
+          >Back to Login</router-link
+        >
       </div>
     </form>
   </div>
 </template>
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase/app";
 import { mapActions } from "vuex";
 
 export default {
   name: "Register",
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
+      registerForm: {
+        name: "",
+        email: "",
+        password: ""
+      },
       error: null
     };
   },
   methods: {
     // ...mapActions(["register"]),
+    submit() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          this.registerForm.email,
+          this.registerForm.password
+        )
+        .then(data => {
+          data.user
+            .updateProfile({
+              name: this.registerForm.name
+            })
+            .then(data => {
+              this.$router.replace({ name: "home" });
+            });
+        })
+        .catch(err => {
+          this.error = err.message;
+        });
+    }
   }
 };
 </script>
 
-<style scoped lang="scss">
-.register-form {
-  margin: auto;
-  width: 50%;
-}
-</style>
+<style scoped lang="scss"></style>

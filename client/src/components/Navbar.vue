@@ -3,42 +3,31 @@
     <ul class="flex">
       <li class="flex-1 mr-2">
         <router-link
-          to="/"
-          class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >
-          Basebook
-          <span class="sr-only">(current)</span>
-        </router-link>
-      </li>
-      <li class="flex-1 mr-2">
-        <router-link
           to="/players"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Players</router-link>
+          >Players</router-link
+        >
       </li>
       <li class="flex-1 mr-2">
         <router-link
           to="/profile"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Profile</router-link>
+          >Profile</router-link
+        >
       </li>
-      <li class="flex-1 mr-2" v-if="!isLoggedIn">
+      <li class="flex-1 mr-2">
         <router-link
           to="/"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Login</router-link>
+          >Login</router-link
+        >
       </li>
-      <li class="flex-1 mr-2" v-if="!isLoggedIn">
-        <router-link
-          to="/register"
-          class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Register</router-link>
-      </li>
-      <li class="flex-1 mr-2" v-if="isLoggedIn">
+      <li class="flex-1 mr-2">
         <a
-          @click.prevent="logout"
+          @click.prevent="signOut"
           class="text-center block border bg-gray-300 border-gray rounded text-blue-500 hover:bg-green-300 py-2 px-4"
-        >Logout</a>
+          >Logout</a
+        >
       </li>
     </ul>
   </div>
@@ -46,23 +35,24 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import firebase from "firebase/app";
+
 export default {
   computed: {
-    //...mapGetters(["isLoggedIn"])
-    isLoggedIn: function() {
-      return this.$store.getters.isLoggedIn;
-    }
+    ...mapGetters({ user: "user" })
   },
   methods: {
-    // ...mapActions(["logout"]),
-    logout: function() {
-      this.$store.dispatch("logout").then(() => {
-        this.$router.push("/login");
-      });
+    ...mapActions(["logout"]),
+    signOut() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace({
+            name: "home"
+          });
+        });
     }
-    /*  logoutUser() {
-      this.logout();
-    } */
   }
 };
 </script>

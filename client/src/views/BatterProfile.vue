@@ -1,17 +1,25 @@
 <template>
-  <div class="player-profile">
+  <div class="player-profile m-3">
     <div
-      class="w-4/5 cursor-pointer border b-gray-400 rounded flex flex-col justify-center items-center text-center p-6 bg-white m-8"
+      class="w-full flex flex-wrap justify-between cursor-pointer border b-gray-400 rounded bg-white lg:m-6 card md:m-2"
     >
-      <div class="column-left">
-        <div class="text-md font-bold flex flex-col text-gray-900">
-          <span class="uppercase">{{ currentBatter.Name }}</span>
-          <span class="font-normal text-gray-700 text-sm">{{ currentBatter.Team }}</span>
+      <div class="column-left justify-center items-center text-center pl-8">
+        <div class="fixed-player-info">
+          <div class="text-md font-bold flex flex-col text-gray-900">
+            <span class="uppercase projections-text">
+              {{
+              currentBatter.Name
+              }}
+            </span>
+            <span class="font-normal text-gray-700 text-md">{{ currentBatter.Team }}</span>
+          </div>
+          <div class="logo flex items-center justify-center pt-2">
+            <div class="circle flex items-center justify-center">
+              <i :class="matchTeamLogo(currentBatter.Team)"></i>
+            </div>
+          </div>
         </div>
-        <div class="w-32 h-32 flex items-center justify-center">
-          <!-- image here -->
-        </div>
-        <h3 class="text-black mb-6">Player Projections</h3>
+        <h3 class="text-black mb-6 mt-4 projections-text">Player Projections</h3>
         <p class="text-gray-700 mb-2">Batting Average -- On Base Percentage</p>
         <div class="text-3xl font-bold text-gray-900 mb-6">
           {{ currentBatter.AVG }}
@@ -44,33 +52,7 @@
         </div>
         <div class="flex justify-between w-full">
           <div class="flex items-center text-gray-700 px-2">
-            <svg
-              class="mr-2 h-4"
-              viewBox="0 0 11 18"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g
-                  id="Desktop-HD"
-                  transform="translate(-120.000000, -479.000000)"
-                  fill="#60A2D7"
-                  fill-rule="nonzero"
-                >
-                  <g id="Group" transform="translate(95.000000, 222.000000)">
-                    <g id="Group-3" transform="translate(25.000000, 256.774194)">
-                      <g id="028-drop" transform="translate(0.000000, 0.225806)">
-                        <path
-                          d="M11,11.9334341 C11,15.0552582 8.53750272,17.5862069 5.5,17.5862069 C2.46249728,17.5862069 0,15.0552582 0,11.9334341 C0,7.58026159 5.5,0 5.5,0 C5.5,0 11,7.58026159 11,11.9334341 L11,11.9334341 Z"
-                          id="Path"
-                        />
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
+            <!-- svg goes here -->
             Games Played: {{ currentBatter.G }}
           </div>
           <div class="flex items-center text-gray-700 px-2">
@@ -122,7 +104,62 @@
           </div>
         </div>
       </div>
-      <div class="column-right"></div>
+
+      <div class="column-right sm:w-full md:w-full lg:w-2/5 xl:w-2/5 px-12">
+        <form @submit.prevent class="form">
+          <label
+            class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-6"
+          >Comments about {{ currentBatter.Name }}</label>
+          <textarea
+            v-model="myComment"
+            class="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 resize-none"
+            id="message"
+            placeholder="Start a conversation or reply to someone else here..."
+          ></textarea>
+          <button
+            class="shadow hover:bg-blue-900 bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
+            @click="addComment"
+          >Add Comment</button>
+        </form>
+
+        <div
+          v-if="
+            this.$store.getters.getComments &&
+              this.$store.getters.getComments.length > 0
+          "
+        >
+          <div
+            v-for="comment in this.$store.getters.getComments"
+            :key="comment.id"
+            class="bg-teal-100 border border-teal-400 text-teal-900 px-6 py-5 pb-12 rounded relative mt-10"
+            role="alert"
+          >
+            <div>
+              <p class="font-bold">{{ user.displayName }}</p>
+              <p
+                class="text-sm float-left top-0 message-text block sm:inline pr-6"
+              >{{ comment.message }}</p>
+              <span
+                @click="deleteComment(comment.id)"
+                class="absolute top-0 bottom-0 right-0 px-4 py-3"
+              >
+                <svg
+                  class="fill-current h-6 w-6 text-teal-500"
+                  role="button"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <title>Close</title>
+                  <path
+                    d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end of right column -->
     </div>
   </div>
 </template>
@@ -130,25 +167,95 @@
 <script>
 import batterProjections from "../../public/batters_2020.json";
 import { mapActions, mapGetters } from "vuex";
-import { db } from "../db";
 import methods from "../methods";
-import players from "@/api/players";
-
+const db = require("../db");
+import firebase from "firebase/app";
+import "firebase/auth";
 export default {
-  name: "PlayerProfile",
+  name: "BatterProfile",
+  beforeCreate: function() {
+    this.$store.dispatch("setComments");
+  },
   data() {
     return {
-      team: batterProjections.Team
+      team: batterProjections.Team,
+      myComment: "",
+      errors: ""
     };
   },
   computed: {
-    ...mapGetters({ currentBatter: "getCurrentBatter" })
+    ...mapGetters({ currentBatter: "getCurrentBatter" }),
+    ...mapGetters(["user"])
   },
   methods: {
-    ...methods
+    ...methods,
+    addComment() {
+      this.errors = "";
+      if (this.myComment !== "") {
+        db.commentsCollection
+          .add({
+            message: this.myComment,
+            created_at: Date.now()
+          })
+          .then(response => {
+            if (response) {
+              this.myComment = "";
+            }
+          })
+          .catch(error => [(this.errors = error)]);
+      } else {
+        this.errors = "Please enter what you want to say.";
+      }
+    },
+    deleteComment(id) {
+      if (id) {
+        db.commentsCollection
+          .doc(id)
+          .delete()
+          .then(function() {
+            console.log("Document successfully deleted");
+          })
+          .catch(function(error) {
+            this.errors = error;
+          });
+      } else [(this.error = "Invalid ID")];
+    }
   }
 };
 </script>
 
 <style scoped>
+.logo {
+  font-size: 5rem;
+}
+.message-text {
+  margin-top: -0.5rem;
+}
+.card {
+  max-height: 76.5vh;
+  overflow: scroll;
+}
+.form {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: white;
+}
+.fixed-player-info {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: white;
+  padding-bottom: 1rem;
+}
+.projections-text {
+  background-color: #ededed;
+  padding: 0.2rem;
+}
+.circle {
+  height: 150px;
+  width: 150px;
+  background-color: #e9e9e9;
+  border-radius: 50%;
+}
 </style>
