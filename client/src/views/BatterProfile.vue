@@ -6,7 +6,7 @@
       <div class="column-left justify-center items-center text-center pl-8">
         <div class="fixed-player-info">
           <div class="text-md font-bold flex flex-col text-gray-900">
-            <span class="uppercase projections-text">
+            <span class="uppercase">
               {{
               currentBatter.Name
               }}

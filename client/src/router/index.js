@@ -14,7 +14,13 @@ Vue.use(VueRouter);
 
 const routes = [{
     path: '*',
-    redirect: '/home'
+    redirect: '/home',
+    meta: {
+      title: 'basebook',
+      metaTags: [{
+        name: 'social media for baseball fans'
+      }]
+    }
   },
   {
     path: '/',

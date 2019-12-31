@@ -17,7 +17,7 @@ export default {
     Navbar
   },
   computed: {
-    ...mapGetters(["error", "isLoggedIn"]),
+    ...mapGetters(["error"]),
     ...mapState(["user"])
   },
   methods: {
