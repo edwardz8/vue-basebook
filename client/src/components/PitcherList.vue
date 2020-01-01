@@ -5,15 +5,17 @@
     <!-- Pitcher Grid List -->
     <div class="grid-row mt-4">
       <div
-        class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
+        class="border m-6 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
         v-for="pitcher in pitchers"
         :key="pitcher.playerid"
       >
-        <div class="sm:flex sm:items-center px-6 py-4 hover:bg-gray-300">
-          <p class="logo">
+        <div class="clearfix sm:flex sm:items-center px-12 py-4 hover:bg-gray-300">
+          <p
+            class="logo xl:float-left lg:float-left xl:mr-4 lg:mr-4 md:mr-4 md:my-2 xl:my-2 lg:my-2"
+          >
             <i :class="matchTeamLogo(pitcher.Team)"></i>
           </p>
-          <div class="ml-5 text-center sm:text-left sm:flex-grow">
+          <div class="text-center sm:text-left sm:flex-grow">
             <div class="mb-4">
               <p class="font-sans text-xl leading-tight mb-2">{{ pitcher.Name }}</p>
               <p

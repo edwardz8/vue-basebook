@@ -105,7 +105,7 @@
         </div>
       </div>
 
-      <div class="column-right sm:w-full md:w-full lg:w-2/5 xl:w-2/5 px-12">
+      <div class="column-right lg:w-2/5 xl:w-2/5 px-10">
         <form @submit.prevent class="form">
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-6"
@@ -123,6 +123,7 @@
         </form>
 
         <div
+          class="mb-4"
           v-if="
             this.$store.getters.getComments &&
               this.$store.getters.getComments.length > 0
@@ -240,6 +241,7 @@ export default {
   top: 0;
   z-index: 100;
   background-color: white;
+  min-width: 270px;
 }
 .fixed-player-info {
   position: sticky;
