@@ -31,7 +31,7 @@
 
       <!-- Favorites -->
       <div class="w-full md:w-3/4">
-        <div class="favorites-grid">
+        <div class="favorites-grid m-3">
           <div
             class="border m-4 rounded-lg bg-white mx-auto max-w-sm shadow-lg rounded-lg overflow-hidden"
             v-for="(fav, index) in getFavorites"

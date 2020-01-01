@@ -109,12 +109,12 @@
         <form @submit.prevent class="form">
           <label
             class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 mt-6"
-          >Comments about {{ currentBatter.Name }}</label>
+          >Comments on {{ currentBatter.Name }}</label>
           <textarea
             v-model="myComment"
             class="no-resize appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 h-32 resize-none"
             id="message"
-            placeholder="Start a conversation or reply to someone else here..."
+            placeholder="Start a conversation or reply to another comment here..."
           ></textarea>
           <button
             class="shadow hover:bg-blue-900 bg-black focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mb-4"
@@ -250,7 +250,7 @@ export default {
 }
 .projections-text {
   background-color: #ededed;
-  padding: 0.2rem;
+  padding: 0.1rem;
 }
 .circle {
   height: 150px;
